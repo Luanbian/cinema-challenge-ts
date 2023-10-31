@@ -4,5 +4,5 @@ import makeRoute from '../adapters/express.adapter'
 import { makeAddController } from '../factories/controller.factory'
 
 export default (router: Router): void => {
-  router.get('/api/home', makeRoute(makeAddController()))
+  router.post('/api/newMovie', makeRoute(makeAddController()))
 }

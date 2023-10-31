@@ -1,6 +1,5 @@
-import { randomUUID } from 'crypto'
-
 export interface MovieProps {
+  id: string
   name: string
   synopsis: string
   releaseDate: Date
@@ -15,7 +14,7 @@ export class Movie {
   private readonly inTheaters: boolean
 
   private constructor (props: MovieProps) {
-    this.id = randomUUID()
+    this.id = props.id
     this.name = props.name
     this.synopsis = props.synopsis
     this.releaseDate = props.releaseDate

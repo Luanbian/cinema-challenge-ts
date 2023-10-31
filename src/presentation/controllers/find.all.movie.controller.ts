@@ -3,12 +3,16 @@ import { type HttpResponse } from '../../@types/http'
 import { type ListMovie } from '../../data/usecases/list.movie'
 import { noContent, ok, serverError } from '../helpers/http.helper'
 
-export class FindAllMovieController implements Controller<null> {
+export interface queryParamns {
+  order: 'asc' | 'desc'
+}
+
+export class FindAllMovieController implements Controller<queryParamns> {
   constructor (private readonly list: ListMovie) {}
 
-  public async handle (): Promise<HttpResponse> {
+  public async handle ({ order }: queryParamns): Promise<HttpResponse> {
     try {
-      const res = await this.list.perform()
+      const res = await this.list.perform(order)
       if (res.length === 0) return noContent()
       return ok(res)
     } catch (error) {

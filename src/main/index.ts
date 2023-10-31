@@ -1,4 +1,5 @@
 import express from 'express'
+import routes from './routes/routes'
 
 class Server {
   private readonly app = express()
@@ -16,6 +17,7 @@ class Server {
 
   public bootstrap (): void {
     this.middleware()
+    routes(this.app)
     this.start()
   }
 }

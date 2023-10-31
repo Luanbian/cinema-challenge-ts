@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { type MovieProps, Movie } from '../../domain/entities/movie'
 import { type SaveMovie } from '../../infra/repositories/save.movie'
+import moment from 'moment'
 
 export interface newMovie extends MovieProps {
   id: string
@@ -13,7 +14,7 @@ export class CreateMovie {
       id: randomUUID(),
       name: props.name,
       synopsis: props.synopsis,
-      releaseDate: props.releaseDate,
+      releaseDate: moment(props.releaseDate, 'DD/MM/YYYY').toDate(),
       inTheaters: props.inTheaters
     }
     await this.repository.save(newMovie)

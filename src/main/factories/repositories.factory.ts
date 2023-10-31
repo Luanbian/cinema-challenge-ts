@@ -5,6 +5,6 @@ export const makeSaveMovie = (): SaveMovie => {
   return new SaveMovie()
 }
 
-export const makeListMovie = (): FindAllMovie => {
+export const makeFindAllMovie = (): FindAllMovie => {
   return new FindAllMovie()
 }

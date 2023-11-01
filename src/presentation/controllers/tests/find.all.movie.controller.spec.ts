@@ -4,6 +4,7 @@ import { FindAllMovieController, type queryParamns } from '../find.all.movie.con
 
 interface SutTypes {
   sut: FindAllMovieController
+  list: IlistMovie
 }
 
 const makeListMock = (): IlistMovie => {
@@ -40,7 +41,7 @@ const makeListMock = (): IlistMovie => {
 const makeSut = (): SutTypes => {
   const list = makeListMock()
   const sut = new FindAllMovieController(list)
-  return { sut }
+  return { sut, list }
 }
 
 describe('FindAllMovieController', () => {
@@ -67,5 +68,17 @@ describe('FindAllMovieController', () => {
       limit: '100',
       page: '1'
     })
+  })
+  test('should return 204 if call list with no content', async () => {
+    const { sut, list } = makeSut()
+    jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
+      return {
+        result: [],
+        length: 0,
+        hasMore: false
+      }
+    })
+    const response = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    expect(response.statusCode).toBe(204)
   })
 })

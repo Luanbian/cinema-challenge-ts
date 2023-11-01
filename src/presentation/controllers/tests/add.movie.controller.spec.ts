@@ -15,8 +15,8 @@ const makeCreateMock = (): IcreateMovie => {
         id: 'fake_id',
         name: 'fake_name',
         synopsis: 'fake_synopsis',
-        releaseDate: new Date(),
-        inTheaters: true
+        releaseDate: new Date('01/11/2023'),
+        inTheaters: false
       }
       return fakeMovie
     }
@@ -42,5 +42,12 @@ describe('AddMovieController', () => {
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(201)
+    expect(httpResponse.body).toEqual({
+      id: 'fake_id',
+      name: 'fake_name',
+      synopsis: 'fake_synopsis',
+      releaseDate: new Date('01/11/2023'),
+      inTheaters: false
+    })
   })
 })

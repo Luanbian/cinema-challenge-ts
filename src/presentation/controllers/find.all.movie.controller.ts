@@ -4,15 +4,16 @@ import { type ListMovie } from '../../data/usecases/list.movie'
 import { noContent, ok, serverError } from '../helpers/http.helper'
 
 export interface queryParamns {
-  order: 'asc' | 'desc'
+  column?: string
+  type?: 'asc' | 'desc'
 }
 
 export class FindAllMovieController implements Controller<queryParamns> {
   constructor (private readonly list: ListMovie) {}
 
-  public async handle ({ order }: queryParamns): Promise<HttpResponse> {
+  public async handle ({ column, type }: queryParamns): Promise<HttpResponse> {
     try {
-      const res = await this.list.perform(order)
+      const res = await this.list.perform({ column, type })
       if (res.length === 0) return noContent()
       return ok(res)
     } catch (error) {

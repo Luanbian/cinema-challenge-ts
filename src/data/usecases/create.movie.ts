@@ -1,20 +1,28 @@
 import { randomUUID } from 'crypto'
-import { type MovieProps, Movie } from '../../domain/entities/movie'
+import { Movie } from '../../domain/entities/movie'
 import { type SaveMovie } from '../../infra/repositories/save.movie'
-import moment from 'moment'
+import { parse } from 'date-fns'
+
+export interface movieDto {
+  id: string
+  name: string
+  synopsis: string
+  releaseDate: string
+  inTheaters: boolean
+}
 
 export class CreateMovie {
   constructor (private readonly repository: SaveMovie) {}
 
-  public async perform (props: MovieProps): Promise<Movie> {
-    const newMovie: MovieProps = {
+  public async perform (props: movieDto): Promise<Movie> {
+    const movie = Movie.create({
       id: randomUUID(),
       name: props.name,
       synopsis: props.synopsis,
-      releaseDate: moment(props.releaseDate, 'DD/MM/YYYY').toDate(),
+      releaseDate: parse(props.releaseDate, 'dd/MM/yyyy', new Date()),
       inTheaters: props.inTheaters
-    }
-    await this.repository.save(newMovie)
-    return Movie.create(newMovie)
+    })
+    await this.repository.save(movie)
+    return movie
   }
 }

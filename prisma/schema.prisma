@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Movies {
-  id String @id
+  id String @id @db.Char(36)
   name String
   synopsis String
   releaseDate DateTime

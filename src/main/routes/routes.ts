@@ -5,6 +5,6 @@ import { makeAddController, makeFindAllController } from '../factories/controlle
 import { handleMovieValidation, validateMovieInput } from '../../middleware/validator'
 
 export default (router: Router): void => {
-  router.post('/api/newMovie', validateMovieInput, handleMovieValidation, makeRoute(makeAddController()))
+  router.post('/api/movies', validateMovieInput, handleMovieValidation, makeRoute(makeAddController()))
   router.get('/api/movies', makeRoute(makeFindAllController()))
 }

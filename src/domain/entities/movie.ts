@@ -7,11 +7,11 @@ export interface MovieProps {
 }
 
 export class Movie {
-  private readonly id: string
-  private readonly name: string
-  private readonly synopsis: string
-  private readonly releaseDate: Date
-  private readonly inTheaters: boolean
+  readonly id: string
+  readonly name: string
+  readonly synopsis: string
+  readonly releaseDate: Date
+  readonly inTheaters: boolean
 
   private constructor (props: MovieProps) {
     this.id = props.id

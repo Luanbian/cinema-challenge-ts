@@ -1,10 +1,10 @@
 import { type Controller } from '../../@types/controller'
-import { type MovieProps } from '../../domain/entities/movie'
+import { type movieDto } from '../../data/usecases/create.movie'
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
 import { makeCreateMovie, makeListMovie } from './usecase.factory'
 
-export const makeAddController = (): Controller<MovieProps> => {
+export const makeAddController = (): Controller<movieDto> => {
   const create = makeCreateMovie()
   return new AddMovieController(create)
 }

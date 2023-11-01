@@ -1,8 +1,8 @@
-import { type MovieProps } from '../../domain/entities/movie'
+import { type Movie } from '../../domain/entities/movie'
 import prisma from '../prisma'
 
 export class SaveMovie {
-  public async save (data: MovieProps): Promise<void> {
-    await prisma.movies.create({ data })
+  public async save (data: Movie): Promise<void> {
+    await prisma.movies.createMany({ data: [data] })
   }
 }

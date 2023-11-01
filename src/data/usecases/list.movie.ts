@@ -10,7 +10,7 @@ export class ListMovie {
       column: column ?? 'name',
       type: type ?? 'asc',
       limit: limit ?? '100',
-      page: page ?? '0'
+      page: page ?? '1'
     })
     return result
   }

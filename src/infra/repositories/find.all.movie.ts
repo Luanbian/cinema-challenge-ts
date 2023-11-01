@@ -10,10 +10,11 @@ interface queryProps {
 
 export class FindAllMovie {
   public async findAll ({ column, type, limit, page }: queryProps): Promise<Movies[]> {
+    const offset = (Number(page) - 1) * Number(limit)
     const result: Movies[] = await prisma.$queryRawUnsafe(`
       select * from movies
       order by ${column} ${type}
-      limit ${limit} offset ${page};
+      limit ${limit} offset ${offset};
     `)
     return result
   }

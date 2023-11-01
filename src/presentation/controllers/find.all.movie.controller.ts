@@ -17,7 +17,14 @@ export class FindAllMovieController implements Controller<queryParamns> {
     try {
       const res = await this.list.perform(paramns)
       if (res.length === 0) return noContent()
-      return ok(res)
+      const body = {
+        length: res.length,
+        limit: paramns.limit,
+        page: paramns.page,
+        hasMore: res.hasMore,
+        content: res.result
+      }
+      return ok(body)
     } catch (error) {
       console.log(error)
       return serverError(error)

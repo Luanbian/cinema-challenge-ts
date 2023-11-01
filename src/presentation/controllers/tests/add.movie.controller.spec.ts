@@ -1,34 +1,38 @@
 import { type IcreateMovie } from '../../../data/protocols/create.movie.protocol'
 import { type movieDto } from '../../../data/usecases/create.movie'
 import { type Movie } from '../../../domain/entities/movie'
-import { type IsaveMovies } from '../../../infra/protocols/save.movies.protocols'
 import { AddMovieController } from '../add.movie.controller'
-import { parse } from 'date-fns'
 
-class SaveMovieStub implements IsaveMovies {
-  public async save (data: Movie): Promise<void> {}
+interface SutTypes {
+  sut: AddMovieController
+  createMovieMock: IcreateMovie
 }
 
-class CreateMovieMock implements IcreateMovie {
-  constructor (private readonly repository: IsaveMovies) {}
-
-  public async perform (props: movieDto): Promise<Movie> {
-    const movie: Movie = {
-      id: props.id,
-      name: props.name,
-      synopsis: props.synopsis,
-      releaseDate: parse(props.releaseDate, 'dd/MM/yyyy', new Date()),
-      inTheaters: props.inTheaters
+const makeCreateMock = (): IcreateMovie => {
+  class CreateMovieMock implements IcreateMovie {
+    public async perform (props: movieDto): Promise<Movie> {
+      const fakeMovie: Movie = {
+        id: 'fake_id',
+        name: 'fake_name',
+        synopsis: 'fake_synopsis',
+        releaseDate: new Date(),
+        inTheaters: true
+      }
+      return fakeMovie
     }
-    return movie
   }
+  return new CreateMovieMock()
+}
+
+const makeSut = (): SutTypes => {
+  const createMovieMock = makeCreateMock()
+  const sut = new AddMovieController(createMovieMock)
+  return { sut, createMovieMock }
 }
 
 describe('AddMovieController', () => {
   test('should return statusCode 201 and movie entity if success', async () => {
-    const repo = new SaveMovieStub()
-    const create = new CreateMovieMock(repo)
-    const sut = new AddMovieController(create)
+    const { sut } = makeSut()
     const input: movieDto = {
       id: 'any_id',
       name: 'any_name',

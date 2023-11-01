@@ -11,7 +11,7 @@
     "undici-types": "^5.26.5"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests --watch --silent --runInBand",
     "start": "ts-node --transpile-only src/main/index.ts"
   },
   "keywords": [],

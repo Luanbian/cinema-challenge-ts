@@ -1,6 +1,6 @@
-import { makeListMock } from '../../../data/mocks/list.movie.mock'
-import { type IlistMovie } from '../../../data/protocols/list.movie.protocol'
-import { FindAllMovieController } from '../find.all.movie.controller'
+import { makeListMock } from '../../data/mocks/list.movie.mock'
+import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
+import { FindAllMovieController } from '../controllers/find.all.movie.controller'
 
 interface SutTypes {
   sut: FindAllMovieController

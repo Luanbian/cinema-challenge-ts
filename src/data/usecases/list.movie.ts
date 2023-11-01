@@ -5,14 +5,13 @@ import { type queryParamns } from '../../presentation/controllers/find.all.movie
 export class ListMovie {
   constructor (private readonly repository: FindAllMovie) {}
 
-  public async perform ({ column, type }: queryParamns): Promise<MovieProps[]> {
-    if (typeof column === 'undefined') {
-      column = 'name'
-    }
-    if (typeof type === 'undefined') {
-      type = 'asc'
-    }
-    const result = await this.repository.findAll({ column, type })
+  public async perform ({ column, type, limit, page }: queryParamns): Promise<MovieProps[]> {
+    const result = await this.repository.findAll({
+      column: column ?? 'name',
+      type: type ?? 'asc',
+      limit: limit ?? '100',
+      page: page ?? '0'
+    })
     return result
   }
 }

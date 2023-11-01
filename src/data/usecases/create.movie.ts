@@ -1,7 +1,8 @@
 import { randomUUID } from 'crypto'
 import { Movie } from '../../domain/entities/movie'
-import { type SaveMovie } from '../../infra/repositories/save.movie'
 import { parse } from 'date-fns'
+import { type IcreateMovie } from '../protocols/create.movie.protocol'
+import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
 
 export interface movieDto {
   id: string
@@ -11,8 +12,8 @@ export interface movieDto {
   inTheaters: boolean
 }
 
-export class CreateMovie {
-  constructor (private readonly repository: SaveMovie) {}
+export class CreateMovie implements IcreateMovie {
+  constructor (private readonly repository: IsaveMovies) {}
 
   public async perform (props: movieDto): Promise<Movie> {
     const movie = Movie.create({

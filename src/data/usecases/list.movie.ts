@@ -1,9 +1,10 @@
 import { type Movie } from '../../domain/entities/movie'
-import { type FindAllMovie } from '../../infra/repositories/find.all.movie'
+import { type IfindAllMovies } from '../../infra/protocols/find.all.movies.protocols'
 import { type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
+import { type IlistMovie } from '../protocols/list.movie.protocol'
 
-export class ListMovie {
-  constructor (private readonly repository: FindAllMovie) {}
+export class ListMovie implements IlistMovie {
+  constructor (private readonly repository: IfindAllMovies) {}
 
   public async perform ({ column, type, limit, page }: queryParamns): Promise<{
     result: Movie[]

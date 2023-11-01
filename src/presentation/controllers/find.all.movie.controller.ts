@@ -1,6 +1,6 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
-import { type ListMovie } from '../../data/usecases/list.movie'
+import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
 import { noContent, ok, serverError } from '../helpers/http.helper'
 
 export interface queryParamns {
@@ -11,7 +11,7 @@ export interface queryParamns {
 }
 
 export class FindAllMovieController implements Controller<queryParamns> {
-  constructor (private readonly list: ListMovie) {}
+  constructor (private readonly list: IlistMovie) {}
 
   public async handle (paramns: queryParamns): Promise<HttpResponse> {
     try {

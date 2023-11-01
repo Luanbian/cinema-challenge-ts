@@ -81,4 +81,14 @@ describe('FindAllMovieController', () => {
     const response = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
     expect(response.statusCode).toBe(204)
   })
+  test('should return statusCode 500 if controller throws', async () => {
+    const { sut, list } = makeSut()
+    jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => {
+        reject(new Error())
+      })
+    })
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    expect(httpResponse?.statusCode).toBe(500)
+  })
 })

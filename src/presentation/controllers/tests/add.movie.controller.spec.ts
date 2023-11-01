@@ -50,4 +50,21 @@ describe('AddMovieController', () => {
       inTheaters: false
     })
   })
+  test('should return statusCode 500 if controller throws', async () => {
+    const { sut, createMovieMock } = makeSut()
+    jest.spyOn(createMovieMock, 'perform').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => {
+        reject(new Error())
+      })
+    })
+    const input: movieDto = {
+      id: 'any_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true
+    }
+    const httpResponse = await sut.handle(input)
+    expect(httpResponse?.statusCode).toBe(500)
+  })
 })

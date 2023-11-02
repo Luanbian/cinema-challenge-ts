@@ -1,19 +1,12 @@
 import { parse } from 'date-fns'
-import { type Movie } from '../../domain/entities/movie'
 import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
 import { type IcreateMovie } from '../protocols/create.movie.protocol'
 import { CreateMovie } from '../usecases/create.movie'
+import { makeSaveMoviesStub } from '../../infra/mocks/save.movie.mock'
 
 interface sutTypes {
   sut: IcreateMovie
   repositoryStub: IsaveMovies
-}
-
-const makeSaveMoviesStub = (): IsaveMovies => {
-  class SaveMoviesStub implements IsaveMovies {
-    public async save (data: Movie): Promise<void> {}
-  }
-  return new SaveMoviesStub()
 }
 
 const makeSut = (): sutTypes => {

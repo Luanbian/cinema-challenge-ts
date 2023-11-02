@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import { app } from '../../index'
+import { app } from '../index'
 
 describe('POST /api/movies', () => {
   test('should return statusCode 201 if data sent is ok', async () => {

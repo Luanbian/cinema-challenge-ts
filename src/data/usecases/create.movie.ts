@@ -5,7 +5,6 @@ import { type IcreateMovie } from '../protocols/create.movie.protocol'
 import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
 
 export interface movieDto {
-  id: string
   name: string
   synopsis: string
   releaseDate: string

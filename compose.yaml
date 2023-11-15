@@ -2,8 +2,6 @@ services:
   server:
     build:
       context: .
-    environment:
-      NODE_ENV: production
     ports:
       - 8080:8080
     depends_on:
@@ -13,25 +11,13 @@ services:
   db:
     image: mysql:latest
     restart: always
-    user: root
-    secrets:
-      - mysql_root_password
-    volumes:
-      - db-data:/var/lib/mysql/data
     environment:
       - MYSQL_DATABASE=cinemark
       - MYSQL_ROOT_PASSWORD=02122001Luan
-    expose:
-      - 3306
+    ports:
+      - 3306:3306
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 3
-
-secrets:
-  mysql_root_password:
-    file: .env
-
-volumes:
-  db-data:

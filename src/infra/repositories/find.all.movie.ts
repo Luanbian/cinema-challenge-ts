@@ -9,11 +9,12 @@ export class FindAllMovie {
     hasMore: boolean
   }> {
     const offset = (Number(page) - 1) * Number(limit)
-    const result: Movies[] = await prisma.$queryRawUnsafe(`
-      select * from movies
-      order by ${column} ${type}
-      limit ${limit} offset ${offset};
-    `)
+    const result: Movies[] = await prisma.movies.findMany({
+      orderBy: [{ [column]: type }],
+      take: Number(limit),
+      skip: offset
+    })
+
     const length = await this.getLength()
     const hasMore = length > Number(page) * Number(limit)
     return { result, length, hasMore }

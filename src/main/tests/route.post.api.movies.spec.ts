@@ -1,7 +1,11 @@
 import supertest from 'supertest'
-import { app } from '../index'
+import appServer from '../index'
 
+const app = appServer.getApp()
 describe('POST /api/movies', () => {
+  afterAll(() => {
+    appServer.close()
+  })
   test('should return statusCode 201 if data sent is ok', async () => {
     const response = await supertest(app).post('/api/movies').send({
       name: 'any_movie_test',

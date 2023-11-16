@@ -1,18 +1,5 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { makeHttpMock } from '../../@types/mocks/http.mock'
 import makeRoute from '../adapters/express.adapter'
-import { type Request, type Response } from 'express'
-
-const makeHttpMock = (): { req: Request, res: Response } => {
-  const mockRequest = {} as Request
-  const mockResponse = {
-    status: jest.fn().mockReturnThis(),
-    json: jest.fn()
-  } as unknown as Response
-  return {
-    req: mockRequest,
-    res: mockResponse
-  }
-}
 
 describe('Express Adapter', () => {
   test('should return 200 if success', async () => {

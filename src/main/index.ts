@@ -1,25 +1,40 @@
-import express from 'express'
+import express, { type Application } from 'express'
 import routes from './routes/routes'
+import http, { type Server } from 'http'
 
-export const app = express()
-class Server {
-  private readonly port = 8080
+class AppServer {
+  private readonly server: Server
+  private readonly port = 3000
+  private readonly app: Application
+
+  constructor () {
+    this.app = express()
+    this.server = http.createServer(this.app)
+    this.middleware()
+    routes(this.app)
+    this.start()
+  }
 
   private middleware (): void {
-    app.use(express.urlencoded({ extended: true }))
-    app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(express.json())
   }
 
   private start (): void {
-    const callback = (): void => { console.log('server running at ' + this.port) }
-    app.listen(this.port, callback)
+    const callback = (): void => {
+      console.log('Server running at port ' + this.port)
+    }
+    this.server.listen(this.port, callback)
   }
 
-  public bootstrap (): void {
-    this.middleware()
-    routes(app)
-    this.start()
+  public close (): void {
+    this.server.close()
+  }
+
+  public getApp (): Application {
+    return this.app
   }
 }
-const server = new Server()
-server.bootstrap()
+const appServer = new AppServer()
+export const app = appServer.getApp()
+export default appServer

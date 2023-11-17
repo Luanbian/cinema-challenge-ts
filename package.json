@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest --passWithNoTests --watch --silent --runInBand",
     "test:unit": "npm test -- --watch -c jest.unit.config.js",
-    "test:integration": "npm test -- --wath -c jest.integration.config.js",
+    "test:integration": "npm test -- --watch -c jest.integration.config.js",
     "start": "ts-node --transpile-only src/main/index.ts",
     "start:docker": "docker compose up"
   },

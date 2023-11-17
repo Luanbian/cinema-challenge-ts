@@ -21,3 +21,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+      
+  test-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=cinemark_test
+      - MYSQL_ROOT_PASSWORD=02122001Luan
+    ports:
+      - 3307:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

@@ -14,6 +14,8 @@ services:
     environment:
       - MYSQL_DATABASE=cinemark
       - MYSQL_ROOT_PASSWORD=02122001Luan
+    volumes:
+      - mysql_data:/var/lib/mysql
     ports:
       - 3306:3306
     healthcheck:
@@ -28,6 +30,8 @@ services:
     environment:
       - MYSQL_DATABASE=cinemark_test
       - MYSQL_ROOT_PASSWORD=02122001Luan
+    volumes:
+      - mysql_data_test:/var/lib/mysql
     ports:
       - 3307:3306
     healthcheck:
@@ -35,3 +39,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+
+volumes:
+  mysql_data:
+  mysql_data_test:

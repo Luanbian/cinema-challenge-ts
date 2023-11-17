@@ -3,7 +3,7 @@ import appServer from '../index'
 
 const app = appServer.getApp()
 describe('GET /api/movies', () => {
-  afterAll(() => {
+  afterEach(() => {
     appServer.close()
   })
   test('should return statusCode 200 or 204 if consult is ok', async () => {

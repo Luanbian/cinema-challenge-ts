@@ -3,7 +3,7 @@ import appServer from '../index'
 
 const app = appServer.getApp()
 describe('POST /api/movies', () => {
-  afterAll(() => {
+  afterEach(() => {
     appServer.close()
   })
   test('should return statusCode 201 if data sent is ok', async () => {

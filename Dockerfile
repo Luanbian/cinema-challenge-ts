@@ -15,3 +15,5 @@ COPY . .
 RUN npx prisma generate
 
 CMD npx prisma migrate deploy && npm start
+
+EXPOSE 8080

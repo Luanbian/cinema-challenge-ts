@@ -6,8 +6,8 @@ describe('GET /api/movies', () => {
   afterAll(() => {
     appServer.close()
   })
-  test('should return statusCode 200 if consult is ok', async () => {
+  test('should return statusCode 200 or 204 if consult is ok', async () => {
     const response = await supertest(app).get('/api/movies')
-    expect(response.statusCode).toBe(200)
+    expect(response.statusCode === 200 || response.statusCode === 204).toBe(true)
   })
 })

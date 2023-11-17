@@ -14,6 +14,6 @@ COPY . .
 
 RUN npx prisma generate
 
-CMD npx prisma migrate deploy && npm start
+CMD npx prisma migrate deploy && npm run start:docker
 
 EXPOSE 8080

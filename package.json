@@ -14,8 +14,7 @@
     "test": "jest --passWithNoTests --watch --silent --runInBand",
     "test:unit": "npm test -- --watch -c jest.unit.config.js",
     "test:integration": "npm test -- --watch -c jest.integration.config.js",
-    "start:docker": "ts-node --transpile-only src/main/index.ts",
-    "start": "docker compose up"
+    "start": "ts-node --transpile-only src/main/index.ts"
   },
   "keywords": [],
   "author": "",

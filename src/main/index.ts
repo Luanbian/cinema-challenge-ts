@@ -4,7 +4,7 @@ import http, { type Server } from 'http'
 
 class AppServer {
   private readonly server: Server
-  private readonly port = 3000
+  private readonly port = 8080
   private readonly app: Application
 
   constructor () {

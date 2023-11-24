@@ -1,8 +1,8 @@
 import { type Movies } from '@prisma/client'
 import prisma from '../prisma'
-import { type queryProps } from '../protocols/find.all.movies.protocols'
+import { type IfindAllMovies, type queryProps } from '../protocols/find.all.movies.protocols'
 
-export class FindAllMovie {
+export class FindAllMovie implements IfindAllMovies {
   public async findAll ({ column, type, limit, page }: queryProps): Promise<{
     result: Movies[]
     length: number

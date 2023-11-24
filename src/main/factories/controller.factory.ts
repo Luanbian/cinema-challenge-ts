@@ -5,16 +5,16 @@ import { FindAllEmployerController } from '../../presentation/controllers/find.a
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
 import { makeCreateMovie, makeListMovie } from './usecase.factory'
 
-export const makeAddController = (): Controller<movieDto> => {
+export const makeAddMoviesController = (): Controller<movieDto> => {
   const create = makeCreateMovie()
   return new AddMovieController(create)
 }
 
-export const makeFindAllController = (): Controller<queryParamns> => {
+export const makeFindAllMoviesController = (): Controller<queryParamns> => {
   const list = makeListMovie()
   return new FindAllMovieController(list)
 }
 
-export const makeFindAllEmployerController = (): Controller<null> => {
+export const makeFindAllEmployersController = (): Controller<null> => {
   return new FindAllEmployerController()
 }

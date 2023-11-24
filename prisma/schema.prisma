@@ -17,3 +17,19 @@ model Movies {
   releaseDate DateTime
   inTheaters Boolean
 }
+
+enum Roles {
+  ADMIN
+  CADASTRER
+  MANAGER
+  CONSULTER
+  TRAINEE
+}
+
+model Employers {
+  id String @id @db.Char(36)
+  name String
+  email String
+  password String
+  role Roles @default(CONSULTER)
+}

@@ -1,34 +1,11 @@
+import { makeListEmployerMock } from '../../data/mocks/list.employer.mock'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
-import { Roles, type Employer } from '../../domain/entities/employer'
+import { Roles } from '../../domain/entities/employer'
 import { FindAllEmployerController } from '../controllers/find.all.employer.controller'
 
 interface SutProps {
   sut: FindAllEmployerController
   list: IlistEmployer
-}
-
-const makeListEmployerMock = (): IlistEmployer => {
-  class ListEmployerMock implements IlistEmployer {
-    public async perform (): Promise<{ result: Employer[], length: number }> {
-      return {
-        result: [{
-          id: 'test_id',
-          name: 'test_name',
-          email: 'test_email@gmail.com',
-          password: 'test_password',
-          role: Roles.ADMIN
-        }, {
-          id: 'test_id',
-          name: 'test_name',
-          email: 'test_email@gmail.com',
-          password: 'test_password',
-          role: Roles.ADMIN
-        }],
-        length: 2
-      }
-    }
-  }
-  return new ListEmployerMock()
 }
 
 const makeSut = (): SutProps => {

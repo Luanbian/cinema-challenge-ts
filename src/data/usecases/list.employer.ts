@@ -25,10 +25,6 @@ export class ListEmployer implements IlistEmployer {
       TRAINEE: Roles.TRAINEE
     }
 
-    if (role in roleMap) {
-      return roleMap[role]
-    }
-
-    throw new Error(`Unexpected role: ${role}`)
+    return roleMap[role]
   }
 }

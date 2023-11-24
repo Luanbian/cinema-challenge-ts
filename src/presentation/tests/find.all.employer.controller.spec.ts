@@ -58,4 +58,15 @@ describe('FindAllEmployerController', () => {
       length: 2
     })
   })
+  test('should return 204 if no content', async () => {
+    const { sut, list } = makeSut()
+    jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
+      return {
+        result: [],
+        length: 0
+      }
+    })
+    const httpResponse = await sut.handle()
+    expect(httpResponse.statusCode).toBe(204)
+  })
 })

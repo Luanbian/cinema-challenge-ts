@@ -4,7 +4,7 @@ import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
 import { CreateMovie } from '../../data/usecases/create.movie'
 import { ListEmployer } from '../../data/usecases/list.employer'
 import { ListMovie } from '../../data/usecases/list.movie'
-import { makeFindAllMovie, makeSaveMovie } from './repositories.factory'
+import { makeFindAllEmployer, makeFindAllMovie, makeSaveMovie } from './repositories.factory'
 
 export const makeCreateMovie = (): IcreateMovie => {
   const repository = makeSaveMovie()
@@ -17,5 +17,6 @@ export const makeListMovie = (): IlistMovie => {
 }
 
 export const makeListEmployer = (): IlistEmployer => {
-  return new ListEmployer()
+  const repository = makeFindAllEmployer()
+  return new ListEmployer(repository)
 }

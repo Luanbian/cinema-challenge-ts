@@ -3,7 +3,7 @@ import { type movieDto } from '../../data/usecases/create.movie'
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
-import { makeCreateMovie, makeListMovie } from './usecase.factory'
+import { makeCreateMovie, makeListEmployer, makeListMovie } from './usecase.factory'
 
 export const makeAddMoviesController = (): Controller<movieDto> => {
   const create = makeCreateMovie()
@@ -16,5 +16,6 @@ export const makeFindAllMoviesController = (): Controller<queryParamns> => {
 }
 
 export const makeFindAllEmployersController = (): Controller<null> => {
-  return new FindAllEmployerController()
+  const list = makeListEmployer()
+  return new FindAllEmployerController(list)
 }

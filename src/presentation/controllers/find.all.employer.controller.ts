@@ -12,7 +12,6 @@ export class FindAllEmployerController implements Controller<null> {
       if (res.length === 0) return noContent()
       const body = {
         length: res.length,
-        hasMore: res.hasMore,
         content: res.result
       }
       return ok(body)

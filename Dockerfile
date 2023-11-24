@@ -14,6 +14,6 @@ COPY . .
 
 RUN npx prisma generate
 
-CMD npm run load-env-test -- npx prisma migrate deploy && npm run start
+CMD npx prisma migrate deploy && npm run start
 
 EXPOSE 8080

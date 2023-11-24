@@ -58,7 +58,7 @@ describe('FindAllEmployerController', () => {
       length: 2
     })
   })
-  test('should return 204 if no content', async () => {
+  test('should return status code 204 if no content', async () => {
     const { sut, list } = makeSut()
     jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
       return {
@@ -68,5 +68,15 @@ describe('FindAllEmployerController', () => {
     })
     const httpResponse = await sut.handle()
     expect(httpResponse.statusCode).toBe(204)
+  })
+  test('should return status code 500 server error if controller throws', async () => {
+    const { sut, list } = makeSut()
+    jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => {
+        reject(new Error())
+      })
+    })
+    const httpResponse = await sut.handle()
+    expect(httpResponse.statusCode).toBe(500)
   })
 })

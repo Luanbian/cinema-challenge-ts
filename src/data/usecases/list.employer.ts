@@ -5,7 +5,8 @@ import { type IlistEmployer } from '../protocols/list.employer.protocol'
 export class ListEmployer implements IlistEmployer {
   constructor (private readonly repository: IfindAllEmployers) {}
 
-  public async perform (): Promise<{ result: Employer[], length: number, hasMore: boolean }> {
-
+  public async perform (): Promise<{ result: Employer[], length: number }> {
+    const { result, length } = await this.repository.findAll()
+    return { result, length }
   }
 }

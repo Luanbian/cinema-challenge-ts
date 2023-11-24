@@ -7,11 +7,11 @@ export interface EmployerProps {
 }
 
 export enum Roles {
-  ADMIN,
-  CADASTRER,
-  MANAGER,
-  CONSULTER,
-  TRAINEE
+  ADMIN = 'ADMIN',
+  CADASTRER = 'CADASTRER',
+  MANAGER = 'MANAGER',
+  CONSULTER = 'CONSULTER',
+  TRAINEE = 'TRAINEE',
 }
 
 export class Employer {

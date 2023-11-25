@@ -9,9 +9,10 @@ interface SutProps {
 
 const makeSut = (): SutProps => {
   const create = makeCreateEmployerMock()
-  const sut = new AddEmployerController()
+  const sut = new AddEmployerController(create)
   return { sut, create }
 }
+
 describe('AddEmployerController', () => {
   test('should return status code 201 and employer entity if success', async () => {
 

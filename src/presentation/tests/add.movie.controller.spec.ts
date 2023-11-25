@@ -1,6 +1,5 @@
 import { makeCreateMovieMock } from '../../data/mocks/create.movie.mock'
-import { type IcreateMovie } from '../../data/protocols/create.movie.protocol'
-import { type movieDto } from '../../data/usecases/create.movie'
+import { type movieDto, type IcreateMovie } from '../../data/protocols/create.movie.protocol'
 import { AddMovieController } from '../controllers/add.movie.controller'
 
 interface SutTypes {

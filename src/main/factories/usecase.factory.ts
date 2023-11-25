@@ -1,3 +1,4 @@
+import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
 import { type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
 import { type IcreateMovie } from '../../data/protocols/create.movie.protocol'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
@@ -25,5 +26,7 @@ export const makeListEmployer = (): IlistEmployer => {
 
 export const makeCreateEmployer = (): IcreateEmployer => {
   const repository = makeSaveEmployer()
-  return new CreateEmployer(repository)
+  const salt = 12
+  const encrypter = new BcryptAdapter(salt)
+  return new CreateEmployer(repository, encrypter)
 }

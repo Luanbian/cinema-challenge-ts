@@ -1,31 +1,12 @@
-import { randomUUID } from 'crypto'
-import { Employer, Roles } from '../../domain/entities/employer'
+import { Roles } from '../../domain/entities/employer'
 import { type EmployerDto, type IcreateEmployer } from '../protocols/create.employer.protocol'
+import { type IsaveEmployers } from '../../infra/protocols/save.employers.protocols'
+import { makeSaveEmployerStub } from '../../infra/mocks/save.employer.mock'
+import { CreateEmployer } from '../usecases/create.employer'
 
 interface SutProps {
   sut: IcreateEmployer
   repositoryStub: IsaveEmployers
-}
-
-interface IsaveEmployers {
-  save: (data: Employer) => Promise<void>
-}
-
-const makeSaveEmployerStub = (): IsaveEmployers => {
-  class SaveEmployerStub implements IsaveEmployers {
-    public async save (data: Employer): Promise<void> {}
-  }
-  return new SaveEmployerStub()
-}
-
-class CreateEmployer implements IcreateEmployer {
-  constructor (private readonly create: IsaveEmployers) {}
-
-  public async perform (props: EmployerDto): Promise<Employer> {
-    const id = randomUUID()
-    const employer = Employer.create({ id, ...props })
-    return employer
-  }
 }
 
 const makeSut = (): SutProps => {

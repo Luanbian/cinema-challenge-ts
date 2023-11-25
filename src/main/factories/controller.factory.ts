@@ -1,5 +1,5 @@
 import { type Controller } from '../../@types/controller'
-import { type movieDto } from '../../data/usecases/create.movie'
+import { type movieDto } from '../../data/protocols/create.movie.protocol'
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'

@@ -1,16 +1,6 @@
+import { type EmployerDto, type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
 import { Roles, type Employer } from '../../domain/entities/employer'
 import { AddEmployerController } from '../controllers/add.employer.controller'
-
-interface EmployerDto {
-  name: string
-  email: string
-  password: string
-  role: Roles
-}
-
-interface IcreateEmployer {
-  perform: (props: EmployerDto) => Promise<Employer>
-}
 
 interface SutProps {
   sut: AddEmployerController

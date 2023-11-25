@@ -1,15 +1,8 @@
 import { randomUUID } from 'crypto'
 import { Movie } from '../../domain/entities/movie'
 import { parse } from 'date-fns'
-import { type IcreateMovie } from '../protocols/create.movie.protocol'
+import { type movieDto, type IcreateMovie } from '../protocols/create.movie.protocol'
 import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
-
-export interface movieDto {
-  name: string
-  synopsis: string
-  releaseDate: string
-  inTheaters: boolean
-}
 
 export class CreateMovie implements IcreateMovie {
   constructor (private readonly repository: IsaveMovies) {}

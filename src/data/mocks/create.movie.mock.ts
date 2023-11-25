@@ -1,6 +1,5 @@
 import { type Movie } from '../../domain/entities/movie'
-import { type IcreateMovie } from '../protocols/create.movie.protocol'
-import { type movieDto } from '../usecases/create.movie'
+import { type movieDto, type IcreateMovie } from '../protocols/create.movie.protocol'
 
 export const makeCreateMovieMock = (): IcreateMovie => {
   class CreateMovieMock implements IcreateMovie {

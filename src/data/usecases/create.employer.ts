@@ -9,6 +9,7 @@ export class CreateEmployer implements IcreateEmployer {
   public async perform (props: EmployerDto): Promise<Employer> {
     const id = randomUUID()
     const employer = Employer.create({ id, ...props })
+    await this.create.save(employer)
     return employer
   }
 }

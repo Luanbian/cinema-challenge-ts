@@ -1,4 +1,4 @@
-import { makeCreateMock } from '../../data/mocks/create.movie.mock'
+import { makeCreateMovieMock } from '../../data/mocks/create.movie.mock'
 import { type IcreateMovie } from '../../data/protocols/create.movie.protocol'
 import { type movieDto } from '../../data/usecases/create.movie'
 import { AddMovieController } from '../controllers/add.movie.controller'
@@ -9,7 +9,7 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const createMovieMock = makeCreateMock()
+  const createMovieMock = makeCreateMovieMock()
   const sut = new AddMovieController(createMovieMock)
   return { sut, createMovieMock }
 }

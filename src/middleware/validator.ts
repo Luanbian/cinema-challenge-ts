@@ -8,9 +8,18 @@ const validateMovieInput = [
   body('inTheaters').isBoolean()
 ]
 
-export { validateMovieInput }
+const roles = ['admin', 'cadastrer', 'manager', 'consulter', 'trainee']
 
-export function handleMovieValidation (req: Request, res: Response, next: NextFunction): void {
+const validateEmployerInput = [
+  body('name').isString(),
+  body('email').isEmail(),
+  body('password').isString(),
+  body('role').isIn(roles).withMessage('Invalid role')
+]
+
+export { validateMovieInput, validateEmployerInput }
+
+export function handleValidation (req: Request, res: Response, next: NextFunction): void {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
     next()

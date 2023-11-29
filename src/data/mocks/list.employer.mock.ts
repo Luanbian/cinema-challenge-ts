@@ -1,5 +1,6 @@
 import { type IlistEmployer } from '../protocols/list.employer.protocol'
-import { type Employer, Roles } from '../../domain/entities/employer'
+import { type Employer } from '../../domain/entities/employer'
+import { Roles } from '../../domain/enums/roles.enum'
 
 export const makeListEmployerMock = (): IlistEmployer => {
   class ListEmployerMock implements IlistEmployer {

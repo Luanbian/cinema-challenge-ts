@@ -1,4 +1,5 @@
-import { type Employer, Roles } from '../../domain/entities/employer'
+import { type Employer } from '../../domain/entities/employer'
+import { Roles } from '../../domain/enums/roles.enum'
 import { type EmployerDto, type IcreateEmployer } from '../protocols/create.employer.protocol'
 
 export const makeCreateEmployerMock = (): IcreateEmployer => {

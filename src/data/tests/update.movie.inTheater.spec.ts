@@ -21,4 +21,13 @@ describe('UpdateMovieInTheater', () => {
     await sut.perform({ id: 'id_movie' })
     expect(repoSpy).toHaveBeenCalledWith('id_movie')
   })
+  test('should return null if id not exist', async () => {
+    const { sut, repository } = makeSut()
+    jest.spyOn(repository, 'alter').mockImplementationOnce(async () => {
+      return null
+    })
+    const id = 'invalid_id'
+    const usecase = await sut.perform({ id })
+    expect(usecase).toBe(null)
+  })
 })

@@ -5,7 +5,8 @@ import { AddEmployerController } from '../../presentation/controllers/add.employ
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
-import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie } from './usecase.factory'
+import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
+import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeUpdateMovieInTheater } from './usecase.factory'
 
 export const makeAddMoviesController = (): Controller<movieDto> => {
   const create = makeCreateMovie()
@@ -25,4 +26,9 @@ export const makeFindAllEmployersController = (): Controller<null> => {
 export const makeAddEmployerController = (): Controller<EmployerDto> => {
   const create = makeCreateEmployer()
   return new AddEmployerController(create)
+}
+
+export const makeUpdateMovieInTheaterController = (): Controller<idParam> => {
+  const update = makeUpdateMovieInTheater()
+  return new UpdateMovieInTheaterController(update)
 }

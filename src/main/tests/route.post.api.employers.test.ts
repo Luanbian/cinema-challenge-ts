@@ -17,6 +17,16 @@ describe('POST /api/employers', () => {
     expect(response.statusCode).toBe(201)
     expect(response.body.id).toBe('valid_test_id')
   })
+  test('should return randomUUID if id is not provided', async () => {
+    const response = await supertest(app).post('/api/employers').send({
+      // id: 'valid_test_id',
+      name: 'any_employer_test',
+      email: 'test@email.com',
+      password: 'any_pass',
+      role: 'admin'
+    })
+    expect(response.body.id).toHaveLength(36)
+  })
   test('should return 400 bad request if name is missing', async () => {
     const response = await supertest(app).post('/api/employers').send({
       // name: 'any_employer_test',

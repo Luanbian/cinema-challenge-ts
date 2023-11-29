@@ -6,5 +6,5 @@ export interface after {
 }
 
 export interface IalterMovieInTheater {
-  alter: (data: string) => Promise<after | null>
+  alter: (id: string) => Promise<after | null>
 }

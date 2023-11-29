@@ -2,7 +2,7 @@ import { type after, type IalterMovieInTheater } from '../protocols/alter.movie.
 
 export const makeAlterMovieInTheaterStub = (): IalterMovieInTheater => {
   class AlterMovieInTheater implements IalterMovieInTheater {
-    public async alter (data: string): Promise<after | null> {
+    public async alter (id: string): Promise<after | null> {
       return {
         action: 'update',
         after: {

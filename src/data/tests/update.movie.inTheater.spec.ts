@@ -1,37 +1,11 @@
-import { type Movie } from '../../domain/entities/movie'
+import { makeAlterMovieInTheaterStub } from '../../infra/mocks/alter.movie.inTheater.mock'
+import { type after, type IalterMovieInTheater } from '../../infra/protocols/alter.movie.inTheater.protocol'
 import { type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
 import { type IupdateMovieInTheater } from '../protocols/update.movie.inTheater.protocol'
 
 interface SutProps {
   sut: IupdateMovieInTheater
   repository: IalterMovieInTheater
-}
-
-export interface after {
-  action: string
-  after: Movie
-}
-
-export interface IalterMovieInTheater {
-  alter: (data: string) => Promise<after | null>
-}
-
-export const makeAlterMovieInTheaterStub = (): IalterMovieInTheater => {
-  class AlterMovieInTheater implements IalterMovieInTheater {
-    public async alter (data: string): Promise<after | null> {
-      return {
-        action: 'update',
-        after: {
-          id: 'id_movie',
-          name: 'any_movie',
-          synopsis: 'any_sinopsys',
-          inTheaters: false,
-          releaseDate: new Date('01/11/2023')
-        }
-      }
-    }
-  }
-  return new AlterMovieInTheater()
 }
 
 export class UpdateMovieInTheater implements IupdateMovieInTheater {

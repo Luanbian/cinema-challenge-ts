@@ -4,22 +4,12 @@ import { makeSaveEmployerStub } from '../../infra/mocks/save.employer.mock'
 import { CreateEmployer } from '../usecases/create.employer'
 import { type Encrypter } from '../protocols/encrypter.protocol'
 import { Roles } from '../../domain/enums/roles.enum'
+import { makeEncrypterStub } from '../mocks/encrypter.mock'
 
 interface SutProps {
   sut: IcreateEmployer
   repositoryStub: IsaveEmployers
   encrypterStub: Encrypter
-}
-
-const makeEncrypterStub = (): Encrypter => {
-  class EncrypterStub implements Encrypter {
-    public async encrypt (value: string): Promise<string> {
-      return await new Promise((resolve, reject) => {
-        resolve('hashed_password')
-      })
-    }
-  }
-  return new EncrypterStub()
 }
 
 const makeSut = (): SutProps => {

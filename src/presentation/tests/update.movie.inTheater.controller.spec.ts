@@ -1,22 +1,14 @@
+import { makeUpdateMock } from '../../data/mocks/update.movie.inTheater.mock'
 import { type IupdateMovieInTheater } from '../../data/protocols/update.movie.inTheater.protocol'
-import { UpdateMovieInTheaterController, type idParam } from '../controllers/update.movie.inTheater.controller'
+import { UpdateMovieInTheaterController } from '../controllers/update.movie.inTheater.controller'
 
 interface SutProps {
   sut: UpdateMovieInTheaterController
   update: IupdateMovieInTheater
 }
 
-export const makeUpdate = (): IupdateMovieInTheater => {
-  class UpdateMovieInTheater implements IupdateMovieInTheater {
-    public async perform ({ id }: idParam): Promise<string | null> {
-      return `updated item ${id}`
-    }
-  }
-  return new UpdateMovieInTheater()
-}
-
 const makeSut = (): SutProps => {
-  const update = makeUpdate()
+  const update = makeUpdateMock()
   const sut = new UpdateMovieInTheaterController(update)
   return { sut, update }
 }

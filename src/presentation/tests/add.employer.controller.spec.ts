@@ -1,6 +1,6 @@
 import { makeCreateEmployerMock } from '../../data/mocks/create.employer.mock'
 import { type EmployerDto, type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
-import { Roles } from '../../domain/entities/employer'
+import { Roles } from '../../domain/enums/roles.enum'
 import { AddEmployerController } from '../controllers/add.employer.controller'
 
 interface SutProps {

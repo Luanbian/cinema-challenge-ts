@@ -1,6 +1,6 @@
 import { makeListEmployerMock } from '../../data/mocks/list.employer.mock'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
-import { Roles } from '../../domain/entities/employer'
+import { Roles } from '../../domain/enums/roles.enum'
 import { FindAllEmployerController } from '../controllers/find.all.employer.controller'
 
 interface SutProps {

@@ -1,9 +1,9 @@
-import { Roles } from '../../domain/entities/employer'
 import { type EmployerDto, type IcreateEmployer } from '../protocols/create.employer.protocol'
 import { type IsaveEmployers } from '../../infra/protocols/save.employers.protocols'
 import { makeSaveEmployerStub } from '../../infra/mocks/save.employer.mock'
 import { CreateEmployer } from '../usecases/create.employer'
 import { type Encrypter } from '../protocols/encrypter.protocol'
+import { Roles } from '../../domain/enums/roles.enum'
 
 interface SutProps {
   sut: IcreateEmployer

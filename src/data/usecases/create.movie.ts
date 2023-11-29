@@ -9,7 +9,7 @@ export class CreateMovie implements IcreateMovie {
 
   public async perform (props: movieDto): Promise<Movie> {
     const movie = Movie.create({
-      id: randomUUID(),
+      id: props.id ?? randomUUID(),
       name: props.name,
       synopsis: props.synopsis,
       releaseDate: parse(props.releaseDate, 'dd/MM/yyyy', new Date()),

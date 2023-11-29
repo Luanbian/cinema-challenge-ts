@@ -1,6 +1,7 @@
 import { type Movie } from '../../domain/entities/movie'
 
 export interface movieDto {
+  id: string
   name: string
   synopsis: string
   releaseDate: string

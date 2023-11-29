@@ -8,6 +8,7 @@ describe('POST /api/movies', () => {
   })
   test('should return statusCode 201 if data sent is ok', async () => {
     const response = await supertest(app).post('/api/movies').send({
+      id: 'valid_test_id',
       name: 'any_movie_test',
       synopsis: 'any_synopsis_test',
       releaseDate: '02/11/2022',

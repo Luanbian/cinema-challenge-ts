@@ -1,6 +1,8 @@
-import { type Employer, type Roles } from '../../domain/entities/employer'
+import { type Employer } from '../../domain/entities/employer'
+import { type Roles } from '../../domain/enums/roles.enum'
 
 export interface EmployerDto {
+  id: string
   name: string
   email: string
   password: string

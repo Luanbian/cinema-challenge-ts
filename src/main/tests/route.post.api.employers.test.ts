@@ -8,6 +8,7 @@ describe('POST /api/employers', () => {
   })
   test('should return statusCode 201 if data sent is ok', async () => {
     const response = await supertest(app).post('/api/employers').send({
+      id: 'valid_test_id',
       name: 'any_employer_test',
       email: 'test@email.com',
       password: 'any_pass',

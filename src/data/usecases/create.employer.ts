@@ -11,9 +11,9 @@ export class CreateEmployer implements IcreateEmployer {
   ) {}
 
   public async perform (props: EmployerDto): Promise<Employer> {
-    const id = randomUUID()
+    const id = props.id ?? randomUUID()
     const hashPassword = await this.encrypter.encrypt(props.password)
-    const employer = Employer.create({ id, ...props, password: hashPassword })
+    const employer = Employer.create({ ...props, password: hashPassword, id })
     await this.create.save(employer)
     return employer
   }

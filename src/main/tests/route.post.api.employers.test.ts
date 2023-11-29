@@ -2,12 +2,12 @@ import supertest from 'supertest'
 import appServer from '../index'
 
 const app = appServer.getApp()
-describe('POST /api/employers/register', () => {
-  afterEach(() => {
-    appServer.close()
+describe('POST /api/employers', () => {
+  afterEach(async () => {
+    await appServer.close()
   })
   test('should return statusCode 201 if data sent is ok', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       name: 'any_employer_test',
       email: 'test@email.com',
       password: 'any_pass',
@@ -17,7 +17,7 @@ describe('POST /api/employers/register', () => {
     expect(response.body.id).toBeDefined()
   })
   test('should return 400 bad request if name is missing', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       // name: 'any_employer_test',
       email: 'test@email.com',
       password: 'any_pass',
@@ -36,7 +36,7 @@ describe('POST /api/employers/register', () => {
     })
   })
   test('should return 400 bad request if email is missing', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       name: 'any_employer_test',
       // email: 'test@email.com',
       password: 'any_pass',
@@ -55,7 +55,7 @@ describe('POST /api/employers/register', () => {
     })
   })
   test('should return 400 bad request if email is in wrong format', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       name: 'any_employer_test',
       email: 'any_email_test',
       password: 'any_pass',
@@ -75,7 +75,7 @@ describe('POST /api/employers/register', () => {
     })
   })
   test('should return 400 bad request if password is missing', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       name: 'any_employer_test',
       email: 'test@email.com',
       // password: 'any_pass',
@@ -94,7 +94,7 @@ describe('POST /api/employers/register', () => {
     })
   })
   test('should return 400 bad request if role is missing', async () => {
-    const response = await supertest(app).post('/api/employers/register').send({
+    const response = await supertest(app).post('/api/employers').send({
       name: 'any_employer_test',
       email: 'test@email.com',
       password: 'any_pass'

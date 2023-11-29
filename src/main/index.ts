@@ -27,8 +27,13 @@ class AppServer {
     this.server.listen(this.port, callback)
   }
 
-  public close (): void {
-    this.server.close()
+  public async close (): Promise<void> {
+    await new Promise<void>(resolve => {
+      this.server.closeAllConnections()
+      this.server.close(() => {
+        resolve()
+      })
+    })
   }
 
   public getApp (): Application {

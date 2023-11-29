@@ -9,5 +9,5 @@ export default (router: Router): void => {
   router.get('/api/movies', makeRoute(makeFindAllMoviesController()))
 
   router.get('/api/employers', makeRoute(makeFindAllEmployersController()))
-  router.post('/api/employers/register', validateEmployerInput, handleValidation, makeRoute(makeAddEmployerController()))
+  router.post('/api/employers', validateEmployerInput, handleValidation, makeRoute(makeAddEmployerController()))
 }

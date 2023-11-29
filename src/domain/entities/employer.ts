@@ -1,17 +1,11 @@
+import { type Roles } from '../enums/roles.enum'
+
 export interface EmployerProps {
   id: string
   name: string
   email: string
   password: string
   role: Roles
-}
-
-export enum Roles {
-  ADMIN = 'ADMIN',
-  CADASTRER = 'CADASTRER',
-  MANAGER = 'MANAGER',
-  CONSULTER = 'CONSULTER',
-  TRAINEE = 'TRAINEE',
 }
 
 export class Employer {

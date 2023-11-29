@@ -1,6 +1,6 @@
+import { type after } from '../../infra/protocols/alter.movie.inTheater.protocol'
 import { type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
 import { type IupdateMovieInTheater } from '../protocols/update.movie.inTheater.protocol'
-import { type after } from '../tests/update.movie.inTheater.spec'
 
 export const makeUpdateMock = (): IupdateMovieInTheater => {
   class UpdateMovieInTheater implements IupdateMovieInTheater {

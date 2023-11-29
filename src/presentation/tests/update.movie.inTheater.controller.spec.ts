@@ -14,17 +14,35 @@ const makeSut = (): SutProps => {
 }
 
 describe('UpdateMovieInTheaterController', () => {
-  test('should return status code 200 and string if success', async () => {
+  test('should return status code 200 and after if success', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle({ id: 'valid_id_movie' })
     expect(httpResponse.statusCode).toBe(200)
-    expect(httpResponse.body).toBe('updated item valid_id_movie')
+    expect(httpResponse.body).toEqual({
+      action: 'update',
+      after: {
+        id: 'id_movie',
+        name: 'any_movie',
+        synopsis: 'any_sinopsys',
+        inTheaters: false,
+        releaseDate: new Date('01/11/2023')
+      }
+    })
   })
   test('should call usecase with correct value', async () => {
     const { update } = makeSut()
     const id = 'movie_id'
     const usecase = await update.perform({ id })
-    expect(usecase).toEqual(`updated item ${id}`)
+    expect(usecase).toEqual({
+      action: 'update',
+      after: {
+        id: 'id_movie',
+        name: 'any_movie',
+        synopsis: 'any_sinopsys',
+        inTheaters: false,
+        releaseDate: new Date('01/11/2023')
+      }
+    })
   })
   test('should return status code 500 if controller throws', async () => {
     const { sut, update } = makeSut()

@@ -1,3 +1,6 @@
+import { type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
+import { type after } from '../tests/update.movie.inTheater.spec'
+
 export interface IupdateMovieInTheater {
-  perform: (idParam) => Promise<string | null>
+  perform: (id: idParam) => Promise<after | null>
 }

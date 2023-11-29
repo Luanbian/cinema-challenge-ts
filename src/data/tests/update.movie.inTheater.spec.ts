@@ -1,20 +1,11 @@
 import { makeAlterMovieInTheaterStub } from '../../infra/mocks/alter.movie.inTheater.mock'
-import { type after, type IalterMovieInTheater } from '../../infra/protocols/alter.movie.inTheater.protocol'
-import { type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
+import { type IalterMovieInTheater } from '../../infra/protocols/alter.movie.inTheater.protocol'
 import { type IupdateMovieInTheater } from '../protocols/update.movie.inTheater.protocol'
+import { UpdateMovieInTheater } from '../usecases/update.movie.inTheater'
 
 interface SutProps {
   sut: IupdateMovieInTheater
   repository: IalterMovieInTheater
-}
-
-export class UpdateMovieInTheater implements IupdateMovieInTheater {
-  constructor (private readonly repository: IalterMovieInTheater) {}
-
-  public async perform ({ id }: idParam): Promise<after | null> {
-    const repo = await this.repository.alter(id)
-    return repo
-  }
 }
 
 const makeSut = (): SutProps => {

@@ -24,6 +24,7 @@ describe('CreateEmployer', () => {
     const { encrypterStub, sut } = makeSut()
     const encryptSpy = jest.spyOn(encrypterStub, 'encrypt')
     const props: EmployerDto = {
+      id: 'valid_test_id',
       name: 'employer_name',
       email: 'employer@email',
       password: '1234',
@@ -35,6 +36,7 @@ describe('CreateEmployer', () => {
   test('should return a employer entity hashed password', async () => {
     const { sut } = makeSut()
     const props: EmployerDto = {
+      id: 'valid_test_id',
       name: 'employer_name',
       email: 'employer@email',
       password: '1234',
@@ -42,7 +44,7 @@ describe('CreateEmployer', () => {
     }
     const employer = await sut.perform(props)
     expect(employer).toEqual({
-      id: employer.id,
+      id: 'valid_test_id',
       name: 'employer_name',
       email: 'employer@email',
       password: 'hashed_password',

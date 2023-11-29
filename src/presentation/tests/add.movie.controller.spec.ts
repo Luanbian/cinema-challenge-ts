@@ -17,6 +17,7 @@ describe('AddMovieController', () => {
   test('should return statusCode 201 and movie entity if success', async () => {
     const { sut } = makeSut()
     const input: movieDto = {
+      id: 'valid_test_id',
       name: 'any_name',
       synopsis: 'any_synopsis',
       releaseDate: '01/11/2023',
@@ -40,6 +41,7 @@ describe('AddMovieController', () => {
       })
     })
     const input: movieDto = {
+      id: 'valid_test_id',
       name: 'any_name',
       synopsis: 'any_synopsis',
       releaseDate: '01/11/2023',

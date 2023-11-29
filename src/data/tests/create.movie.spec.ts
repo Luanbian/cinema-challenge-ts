@@ -19,6 +19,7 @@ describe('CreateMovie', () => {
   test('should return a Movie Entity', async () => {
     const { sut } = makeSut()
     const input = {
+      id: 'valid_test_id',
       name: 'any_name',
       synopsis: 'any_synopsis',
       releaseDate: '01/11/2023',
@@ -26,7 +27,7 @@ describe('CreateMovie', () => {
     }
     const movie = await sut.perform(input)
     expect(movie).toEqual({
-      id: movie.id,
+      id: 'valid_test_id',
       name: 'any_name',
       synopsis: 'any_synopsis',
       releaseDate: parse(input.releaseDate, 'dd/MM/yyyy', new Date()),

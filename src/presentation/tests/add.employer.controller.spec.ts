@@ -18,6 +18,7 @@ describe('AddEmployerController', () => {
   test('should return status code 201 and employer entity if success', async () => {
     const { sut } = makeSut()
     const body: EmployerDto = {
+      id: 'valid_test_id',
       name: 'test',
       email: 'test@email.com',
       password: '****',
@@ -41,6 +42,7 @@ describe('AddEmployerController', () => {
       })
     })
     const body: EmployerDto = {
+      id: 'valid_test_id',
       name: 'test',
       email: 'test@email.com',
       password: '****',

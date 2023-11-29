@@ -15,7 +15,7 @@ describe('POST /api/employers', () => {
       role: 'admin'
     })
     expect(response.statusCode).toBe(201)
-    expect(response.body.id).toBeDefined()
+    expect(response.body.id).toBe('valid_test_id')
   })
   test('should return 400 bad request if name is missing', async () => {
     const response = await supertest(app).post('/api/employers').send({

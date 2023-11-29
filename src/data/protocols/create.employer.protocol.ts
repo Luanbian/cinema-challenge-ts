@@ -2,7 +2,7 @@ import { type Employer } from '../../domain/entities/employer'
 import { type Roles } from '../../domain/enums/roles.enum'
 
 export interface EmployerDto {
-  id: string
+  id?: string
   name: string
   email: string
   password: string

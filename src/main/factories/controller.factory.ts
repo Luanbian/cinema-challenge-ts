@@ -5,8 +5,9 @@ import { AddEmployerController } from '../../presentation/controllers/add.employ
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
+import { type Iauth, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
 import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
-import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeUpdateMovieInTheater } from './usecase.factory'
+import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeLoginEmployer, makeUpdateMovieInTheater } from './usecase.factory'
 
 export const makeAddMoviesController = (): Controller<movieDto> => {
   const create = makeCreateMovie()
@@ -31,4 +32,9 @@ export const makeAddEmployerController = (): Controller<EmployerDto> => {
 export const makeUpdateMovieInTheaterController = (): Controller<idParam> => {
   const update = makeUpdateMovieInTheater()
   return new UpdateMovieInTheaterController(update)
+}
+
+export const makeLoginEmployerController = (): Controller<Iauth> => {
+  const login = makeLoginEmployer()
+  return new LoginEmployerController(login)
 }

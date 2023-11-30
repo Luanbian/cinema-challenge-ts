@@ -1,11 +1,13 @@
 import { type IalterMovieInTheater } from '../../infra/protocols/alter.movie.inTheater.protocol'
 import { type IfindAllEmployers } from '../../infra/protocols/find.all.employers.protocols'
 import { type IfindAllMovies } from '../../infra/protocols/find.all.movies.protocols'
+import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type IsaveEmployers } from '../../infra/protocols/save.employers.protocols'
 import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
 import { AlterMovieInTheater } from '../../infra/repositories/alter.movie.inTheater'
 import { FindAllEmployer } from '../../infra/repositories/find.all.employer'
 import { FindAllMovie } from '../../infra/repositories/find.all.movie'
+import { FindUserByAuth } from '../../infra/repositories/find.user.by.auth'
 import { SaveEmployer } from '../../infra/repositories/save.employer'
 import { SaveMovie } from '../../infra/repositories/save.movie'
 
@@ -27,4 +29,8 @@ export const makeSaveEmployer = (): IsaveEmployers => {
 
 export const makeAlterMovieInTheater = (): IalterMovieInTheater => {
   return new AlterMovieInTheater()
+}
+
+export const makeFindUserByAuth = (): IfindUserByAuth => {
+  return new FindUserByAuth()
 }

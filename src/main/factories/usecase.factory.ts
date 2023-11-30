@@ -42,5 +42,7 @@ export const makeUpdateMovieInTheater = (): IupdateMovieInTheater => {
 
 export const makeLoginEmployer = (): Ilogin => {
   const repository = makeFindUserByAuth()
-  return new LoginEmployer(repository)
+  const salt = 12
+  const encrypter = new BcryptAdapter(salt)
+  return new LoginEmployer(repository, encrypter)
 }

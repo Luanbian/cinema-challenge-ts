@@ -7,6 +7,10 @@ export const makeEncrypterStub = (): Encrypter => {
         resolve('hashed_password')
       })
     }
+
+    public async compare (value: string, passHashed: string): Promise<boolean> {
+      return true
+    }
   }
   return new EncrypterStub()
 }

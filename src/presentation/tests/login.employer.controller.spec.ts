@@ -1,5 +1,6 @@
 interface SutTypes {
   sut: LoginEmployerController
+  login: Ilogin
 }
 
 export interface Iauth {
@@ -42,11 +43,18 @@ export class LoginEmployerController {
 const makeSut = (): SutTypes => {
   const login = makeLoginMock()
   const sut = new LoginEmployerController(login)
-  return { sut }
+  return { sut, login }
 }
 
 describe('LoginEmployerController', () => {
-  test('should', async () => {
-    //
+  test('should call usecase with correct values', async () => {
+    const { sut, login } = makeSut()
+    const loginSpy = jest.spyOn(login, 'perform')
+    const auth: Iauth = {
+      email: 'teste.email@gmail.com',
+      password: '1234'
+    }
+    await sut.handle(auth)
+    expect(loginSpy).toHaveBeenCalledWith(auth)
   })
 })

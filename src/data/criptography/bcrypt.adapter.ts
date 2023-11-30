@@ -9,7 +9,7 @@ export class BcryptAdapter implements Encrypter {
     return hash
   }
 
-  public async compare (value: string, passHashed: string): Promise<boolean> {
+  public async matchPassword (value: string, passHashed: string): Promise<boolean> {
     const passwordMatch = await bcrypt.compare(value, passHashed)
     return passwordMatch
   }

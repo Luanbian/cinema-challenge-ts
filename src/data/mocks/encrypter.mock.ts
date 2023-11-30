@@ -8,8 +8,10 @@ export const makeEncrypterStub = (): Encrypter => {
       })
     }
 
-    public async compare (value: string, passHashed: string): Promise<boolean> {
-      return true
+    public async matchPassword (value: string, passHashed: string): Promise<boolean> {
+      return await new Promise((resolve, reject) => {
+        resolve(true)
+      })
     }
   }
   return new EncrypterStub()

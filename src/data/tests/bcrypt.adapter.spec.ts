@@ -6,6 +6,11 @@ jest.mock('bcrypt', () => ({
     return await new Promise((resolve, reject) => {
       resolve('encrypted_hash')
     })
+  },
+  async compare (): Promise<boolean> {
+    return await new Promise((resolve, reject) => {
+      resolve(true)
+    })
   }
 }))
 
@@ -25,6 +30,25 @@ describe('BcryptAdapter', () => {
     const sut = makeSut()
     const hash = await sut.encrypt('value')
     expect(hash).toBe('encrypted_hash')
+  })
+  test('should call Bcrypt matchPassword with correct values', async () => {
+    const sut = makeSut()
+    const matchPasswordSpy = jest.spyOn(sut, 'matchPassword')
+    await sut.matchPassword('password', 'hashed_password')
+    expect(matchPasswordSpy).toHaveBeenCalledWith('password', 'hashed_password')
+  })
+  test('should return true if password matches with success', async () => {
+    const sut = makeSut()
+    const matchPassword = await sut.matchPassword('password', 'hashed_password')
+    expect(matchPassword).toBe(true)
+  })
+  test('should return false if password dont match', async () => {
+    const sut = makeSut()
+    jest.spyOn(sut, 'matchPassword').mockImplementationOnce(async () => {
+      return false
+    })
+    const matchPassword = await sut.matchPassword('invalid_password', 'hashed_password')
+    expect(matchPassword).toBe(false)
   })
   test('should throws if bcrypt throws', async () => {
     const sut = makeSut()

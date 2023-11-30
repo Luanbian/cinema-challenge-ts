@@ -1,39 +1,12 @@
-import { type Employer } from '../../domain/entities/employer'
+import { makeFindUserByAuthStub } from '../../infra/mocks/find.user.by.auth.mock'
+import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type Iauth } from '../../presentation/controllers/login.employer.controller'
 import { type Ilogin } from '../protocols/login.employer.protocol'
+import { LoginEmployer } from '../usecases/login.employer'
 
 interface SutTypes {
   repository: IfindUserByAuth
   sut: Ilogin
-}
-
-export interface IfindUserByAuth {
-  findUserByAuth: (auth: Iauth) => Promise<Employer | null>
-}
-
-export const makeFindUserByAuthStub = (): IfindUserByAuth => {
-  class FindUserByAuth implements IfindUserByAuth {
-    public async findUserByAuth (auth: Iauth): Promise<Employer | null> {
-      return {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email',
-        password: '1#24%$6',
-        role: 'CONSULTER'
-      }
-    }
-  }
-  return new FindUserByAuth()
-}
-
-export class LoginEmployer implements Ilogin {
-  constructor (private readonly repository: IfindUserByAuth) {}
-
-  public async perform (auth: Iauth): Promise<string | null> {
-    const user = await this.repository.findUserByAuth(auth)
-    if (user === null) return null
-    else return 'token'
-  }
 }
 
 const makeSut = (): SutTypes => {

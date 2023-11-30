@@ -1,6 +1,7 @@
 import { makeFindUserByAuthStub } from '../../infra/mocks/find.user.by.auth.mock'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type Iauth } from '../../presentation/controllers/login.employer.controller'
+import { makeAuthenticateStub } from '../mocks/authenticate.mock'
 import { makeEncrypterStub } from '../mocks/encrypter.mock'
 import { type Encrypter } from '../protocols/encrypter.protocol'
 import { type Ilogin } from '../protocols/login.employer.protocol'
@@ -15,7 +16,8 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const repository = makeFindUserByAuthStub()
   const bcryptStub = makeEncrypterStub()
-  const sut = new LoginEmployer(repository, bcryptStub)
+  const jwtStub = makeAuthenticateStub()
+  const sut = new LoginEmployer(repository, bcryptStub, jwtStub)
   return { sut, repository, bcryptStub }
 }
 
@@ -37,7 +39,7 @@ describe('LoginEmployer', () => {
       password: 'valid_password'
     }
     const usecase = await sut.perform(auth)
-    expect(usecase).toBe('token')
+    expect(typeof usecase === 'string').toBeTruthy()
   })
   test('should return "usuário não encontrado" if user not be found', async () => {
     const { sut, repository } = makeSut()

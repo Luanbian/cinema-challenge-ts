@@ -12,7 +12,7 @@ describe('POST /api/login', () => {
       password: 'any_pass'
     })
     expect(response.statusCode).toBe(200)
-    expect(response.body).toBe('token')
+    expect(typeof response.body === 'string').toBeTruthy()
   })
   test('should return "senha incorreta" and status code 401 if password not match', async () => {
     const response = await supertest(app).post('/api/login').send({

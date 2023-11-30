@@ -1,3 +1,4 @@
+import { JwtAdapter } from '../../data/auth/jwt.adapter'
 import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
 import { type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
 import { type IcreateMovie } from '../../data/protocols/create.movie.protocol'
@@ -44,5 +45,7 @@ export const makeLoginEmployer = (): Ilogin => {
   const repository = makeFindUserByAuth()
   const salt = 12
   const encrypter = new BcryptAdapter(salt)
-  return new LoginEmployer(repository, encrypter)
+  const secret = 'asdfghjkl'
+  const auth = new JwtAdapter(secret)
+  return new LoginEmployer(repository, encrypter, auth)
 }

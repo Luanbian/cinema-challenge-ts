@@ -1,6 +1,7 @@
 import { makeLoginMock } from '../../data/mocks/login.employer.mock'
 import { type Ilogin } from '../../data/protocols/login.employer.protocol'
 import { type Iauth, LoginEmployerController } from '../controllers/login.employer.controller'
+import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
   sut: LoginEmployerController
@@ -37,7 +38,7 @@ describe('LoginEmployerController', () => {
   test('should return status code 401 if email not found', async () => {
     const { sut, login } = makeSut()
     jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
-      return 'usuário não encontrado'
+      throw new ExpectedError('usuário não encontrado')
     })
     const auth: Iauth = {
       email: 'invalid_email',
@@ -50,7 +51,7 @@ describe('LoginEmployerController', () => {
   test('should return status code 401 if password not match', async () => {
     const { sut, login } = makeSut()
     jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
-      return 'senha incorreta'
+      throw new ExpectedError('senha incorreta')
     })
     const auth: Iauth = {
       email: 'invalid_email',

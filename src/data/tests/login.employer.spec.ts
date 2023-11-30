@@ -41,7 +41,7 @@ describe('LoginEmployer', () => {
     const usecase = await sut.perform(auth)
     expect(typeof usecase === 'string').toBeTruthy()
   })
-  test('should return "usuário não encontrado" if user not be found', async () => {
+  test('should throw "usuário não encontrado" if user not be found', async () => {
     const { sut, repository } = makeSut()
     jest.spyOn(repository, 'findUserByAuth').mockImplementationOnce(async () => {
       return null
@@ -50,10 +50,10 @@ describe('LoginEmployer', () => {
       email: 'invalid_email',
       password: '1234'
     }
-    const usecase = await sut.perform(auth)
-    expect(usecase).toBe('usuário não encontrado')
+    const promise = sut.perform(auth)
+    await expect(promise).rejects.toThrow('usuário não encontrado')
   })
-  test('should return "senha incorreta" if user be founded, but password dont match', async () => {
+  test('should throw "senha incorreta" if user be founded, but password dont match', async () => {
     const { sut, bcryptStub } = makeSut()
     jest.spyOn(bcryptStub, 'matchPassword').mockImplementationOnce(async () => {
       return false
@@ -62,7 +62,7 @@ describe('LoginEmployer', () => {
       email: 'invalid_email',
       password: 'invalid_password'
     }
-    const usecase = await sut.perform(auth)
-    expect(usecase).toBe('senha incorreta')
+    const promise = sut.perform(auth)
+    await expect(promise).rejects.toThrow('senha incorreta')
   })
 })

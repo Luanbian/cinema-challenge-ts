@@ -14,7 +14,7 @@ export class LoginEmployerController implements Controller <Iauth> {
   public async handle (auth: Iauth): Promise<HttpResponse> {
     try {
       const res = await this.login.perform(auth)
-      if (res === null) return unauthorized('não autorizado')
+      if (res === 'usuário não encontrado' || res === 'senha incorreta') return unauthorized(res)
       return ok(res)
     } catch (error) {
       console.error(error)

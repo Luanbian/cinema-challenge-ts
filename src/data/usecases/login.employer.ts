@@ -9,14 +9,11 @@ export class LoginEmployer implements Ilogin {
     private readonly encrypter: Encrypter
   ) {}
 
-  public async perform (auth: Iauth): Promise<string | null> {
+  public async perform (auth: Iauth): Promise<string> {
     const user = await this.repository.findUserByAuth(auth.email)
-    if (user === null) return null
+    if (user === null) return 'usuário não encontrado'
     const checkPassword = await this.encrypter.matchPassword(auth.password, user.password)
-    if (checkPassword) {
-      return 'logado'
-    } else {
-      return 'senha incorreta'
-    }
+    if (checkPassword) return 'token'
+    else return 'senha incorreta'
   }
 }

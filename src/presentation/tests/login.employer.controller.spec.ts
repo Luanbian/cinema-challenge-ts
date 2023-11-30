@@ -60,4 +60,18 @@ describe('LoginEmployerController', () => {
     expect(httpResponse.statusCode).toBe(401)
     expect(httpResponse.body).toBe('senha incorreta')
   })
+  test('should return statusCode 500 if controller throws', async () => {
+    const { sut, login } = makeSut()
+    jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => {
+        reject(new Error())
+      })
+    })
+    const auth: Iauth = {
+      email: 'invalid_email',
+      password: '1234'
+    }
+    const httpResponse = await sut.handle(auth)
+    expect(httpResponse?.statusCode).toBe(500)
+  })
 })

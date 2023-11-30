@@ -34,10 +34,10 @@ describe('LoginEmployerController', () => {
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body).toBe('autorized')
   })
-  test('should return status code 401 if user not autorized', async () => {
+  test('should return status code 401 if email not found', async () => {
     const { sut, login } = makeSut()
     jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
-      return null
+      return 'usuário não encontrado'
     })
     const auth: Iauth = {
       email: 'invalid_email',
@@ -45,6 +45,19 @@ describe('LoginEmployerController', () => {
     }
     const httpResponse = await sut.handle(auth)
     expect(httpResponse.statusCode).toBe(401)
-    expect(httpResponse.body).toBe('não autorizado')
+    expect(httpResponse.body).toBe('usuário não encontrado')
+  })
+  test('should return status code 401 if password not match', async () => {
+    const { sut, login } = makeSut()
+    jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
+      return 'senha incorreta'
+    })
+    const auth: Iauth = {
+      email: 'invalid_email',
+      password: '1234'
+    }
+    const httpResponse = await sut.handle(auth)
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toBe('senha incorreta')
   })
 })

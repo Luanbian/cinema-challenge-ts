@@ -1,5 +1,7 @@
+import { type Employer } from '../../domain/entities/employer'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type Iauth } from '../../presentation/controllers/login.employer.controller'
+import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type Authenticate } from '../protocols/authenticate.protocol'
 import { type Encrypter } from '../protocols/encrypter.protocol'
 import { type Ilogin } from '../protocols/login.employer.protocol'
@@ -12,10 +14,20 @@ export class LoginEmployer implements Ilogin {
   ) {}
 
   public async perform (auth: Iauth): Promise<string> {
-    const user = await this.repository.findUserByAuth(auth.email)
-    if (user === null) return 'usuário não encontrado'
-    const checkPassword = await this.encrypter.matchPassword(auth.password, user.password)
-    if (checkPassword) return await this.auth.generateToken(user)
-    else return 'senha incorreta'
+    const user = await this.findUserByEmail(auth.email)
+    await this.checkPassword(auth.password, user.password)
+    const token = await this.auth.generateToken(user)
+    return token
+  }
+
+  private async findUserByEmail (email: string): Promise<Employer> {
+    const user = await this.repository.findUserByAuth(email)
+    if (user === null) throw new ExpectedError('usuário não encontrado')
+    else return user
+  }
+
+  private async checkPassword (password: string, hashPassword: string): Promise<void> {
+    const check = await this.encrypter.matchPassword(password, hashPassword)
+    if (!check) throw new ExpectedError('senha incorreta')
   }
 }

@@ -1,5 +1,3 @@
-import { JwtAdapter } from '../../data/auth/jwt.adapter'
-import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
 import { type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
 import { type IcreateMovie } from '../../data/protocols/create.movie.protocol'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
@@ -12,6 +10,7 @@ import { ListEmployer } from '../../data/usecases/list.employer'
 import { ListMovie } from '../../data/usecases/list.movie'
 import { LoginEmployer } from '../../data/usecases/login.employer'
 import { UpdateMovieInTheater } from '../../data/usecases/update.movie.inTheater'
+import { makeAuthenticateAdapter, makeEncrypterAdapter } from './adapter.factory'
 import { makeAlterMovieInTheater, makeFindAllEmployer, makeFindAllMovie, makeFindUserByAuth, makeSaveEmployer, makeSaveMovie } from './repositories.factory'
 
 export const makeCreateMovie = (): IcreateMovie => {
@@ -31,8 +30,7 @@ export const makeListEmployer = (): IlistEmployer => {
 
 export const makeCreateEmployer = (): IcreateEmployer => {
   const repository = makeSaveEmployer()
-  const salt = 12
-  const encrypter = new BcryptAdapter(salt)
+  const encrypter = makeEncrypterAdapter()
   return new CreateEmployer(repository, encrypter)
 }
 
@@ -43,9 +41,7 @@ export const makeUpdateMovieInTheater = (): IupdateMovieInTheater => {
 
 export const makeLoginEmployer = (): Ilogin => {
   const repository = makeFindUserByAuth()
-  const salt = 12
-  const encrypter = new BcryptAdapter(salt)
-  const secret = 'asdfghjkl'
-  const auth = new JwtAdapter(secret)
+  const encrypter = makeEncrypterAdapter()
+  const auth = makeAuthenticateAdapter()
   return new LoginEmployer(repository, encrypter, auth)
 }

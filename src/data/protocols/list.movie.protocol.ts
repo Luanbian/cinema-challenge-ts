@@ -1,8 +1,8 @@
 import { type Movie } from '../../domain/entities/movie'
-import { type IParamns } from '../../presentation/controllers/find.all.movie.controller'
+import { type FindAllMovieControllerProps } from '../../presentation/controllers/find.all.movie.controller'
 
 export interface IlistMovie {
-  perform: (paramns: IParamns) => Promise<{
+  perform: (paramns: FindAllMovieControllerProps) => Promise<{
     result: Movie[]
     length: number
     hasMore: boolean

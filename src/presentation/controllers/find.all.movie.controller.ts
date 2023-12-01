@@ -4,7 +4,7 @@ import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
 import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
 
-export interface IParamns {
+export interface FindAllMovieControllerProps {
   column?: string
   type?: 'asc' | 'desc'
   limit?: string
@@ -12,10 +12,10 @@ export interface IParamns {
   role: Roles
 }
 
-export class FindAllMovieController implements Controller<IParamns> {
+export class FindAllMovieController implements Controller<FindAllMovieControllerProps> {
   constructor (private readonly list: IlistMovie) {}
 
-  public async handle (paramns: IParamns): Promise<HttpResponse> {
+  public async handle (paramns: FindAllMovieControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'consulter']
       if (!permitedRoles.includes(paramns.role.toLowerCase().trim())) {

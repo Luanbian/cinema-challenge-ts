@@ -7,7 +7,8 @@ export default function makeRoute<T> (controller: Controller<T>) {
       const { body, statusCode } = await controller.handle({
         ...req.body,
         ...req.params,
-        ...req.query
+        ...req.query,
+        ...req.headers
       })
       return res.status(statusCode).json(body)
     } catch (error) {

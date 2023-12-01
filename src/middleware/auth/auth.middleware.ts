@@ -2,7 +2,7 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { type Authenticate } from '../../data/protocols/authenticate.protocol'
 
 export default function makeAuthMiddleware (auth: Authenticate) {
-  return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const authToken = req.headers.authorization
     if (typeof authToken === 'undefined') {
       return res.status(401).json('Token not provided')

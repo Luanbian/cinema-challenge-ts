@@ -9,4 +9,9 @@ export class JwtAdapter implements Authenticate {
     const token = jwt.sign(user, this.secret)
     return token
   }
+
+  public async verifyToken (token: string): Promise<string | jwt.JwtPayload> {
+    const decoded = jwt.verify(token, this.secret)
+    return decoded
+  }
 }

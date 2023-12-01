@@ -1,7 +1,7 @@
 import { JwtAdapter } from '../../middleware/token/jwt.adapter'
 import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
-import { type Authenticate } from '../../data/protocols/authenticate.protocol'
-import { type Encrypter } from '../../data/protocols/encrypter.protocol'
+import { type Authenticate } from '../../middleware/auth/protocol/authenticate.protocol'
+import { type Encrypter } from '../../data/criptography/protocol/encrypter.protocol'
 import * as dotenv from 'dotenv'
 dotenv.config()
 

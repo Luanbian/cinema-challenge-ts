@@ -3,7 +3,7 @@ import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.pr
 import { type Iauth } from '../../presentation/controllers/login.employer.controller'
 import { makeAuthenticateStub } from '../mocks/authenticate.mock'
 import { makeEncrypterStub } from '../mocks/encrypter.mock'
-import { type Encrypter } from '../protocols/encrypter.protocol'
+import { type Encrypter } from '../criptography/protocol/encrypter.protocol'
 import { type Ilogin } from '../protocols/login.employer.protocol'
 import { LoginEmployer } from '../usecases/login.employer'
 

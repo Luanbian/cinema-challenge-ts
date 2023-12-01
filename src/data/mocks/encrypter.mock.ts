@@ -1,4 +1,4 @@
-import { type Encrypter } from '../protocols/encrypter.protocol'
+import { type Encrypter } from '../criptography/protocol/encrypter.protocol'
 
 export const makeEncrypterStub = (): Encrypter => {
   class EncrypterStub implements Encrypter {

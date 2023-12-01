@@ -1,6 +1,6 @@
 import { type JwtPayload } from 'jsonwebtoken'
 import { type Employer } from '../../domain/entities/employer'
-import { type Authenticate } from '../protocols/authenticate.protocol'
+import { type Authenticate } from '../../middleware/auth/protocol/authenticate.protocol'
 
 export const makeAuthenticateStub = (): Authenticate => {
   class AuthenticateStub implements Authenticate {

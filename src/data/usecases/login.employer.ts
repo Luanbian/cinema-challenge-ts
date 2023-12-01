@@ -2,8 +2,8 @@ import { type Employer } from '../../domain/entities/employer'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type Iauth } from '../../presentation/controllers/login.employer.controller'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
-import { type Authenticate } from '../protocols/authenticate.protocol'
-import { type Encrypter } from '../protocols/encrypter.protocol'
+import { type Authenticate } from '../../middleware/auth/protocol/authenticate.protocol'
+import { type Encrypter } from '../criptography/protocol/encrypter.protocol'
 import { type Ilogin } from '../protocols/login.employer.protocol'
 
 export class LoginEmployer implements Ilogin {

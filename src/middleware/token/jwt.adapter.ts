@@ -1,5 +1,5 @@
 import jwt, { type JwtPayload } from 'jsonwebtoken'
-import { type Authenticate } from '../../data/protocols/authenticate.protocol'
+import { type Authenticate } from '../auth/protocol/authenticate.protocol'
 import { type Employer } from '../../domain/entities/employer'
 
 export class JwtAdapter implements Authenticate {

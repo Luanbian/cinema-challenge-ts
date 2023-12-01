@@ -13,10 +13,10 @@ export default function makeAuthMiddleware (auth: Authenticate) {
       await auth.verifyToken(token)
       next()
     } catch (error) {
-      console.error(error)
       if (error.name === 'JsonWebTokenError') {
         return res.status(401).json({ error: error.message })
       }
+      console.error(error)
       return res.status(500).json({ error: 'internal server error' })
     }
   }

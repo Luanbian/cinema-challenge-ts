@@ -14,9 +14,33 @@ const makeSut = (): SutTypes => {
 }
 
 describe('FindAllMovieController', () => {
-  test('should return status 200 if call list sucessfully', async () => {
+  test('should return status 200 if call list sucessfully if logged user be admin', async () => {
     const { sut } = makeSut()
-    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'ADMIN' })
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      content: [{
+        id: 'any_id_1',
+        inTheaters: true,
+        name: 'any_name_1',
+        releaseDate: new Date('01/11/2023'),
+        synopsis: 'any_synopsis_1'
+      }, {
+        id: 'any_id_2',
+        inTheaters: false,
+        name: 'any_name_2',
+        releaseDate: new Date('02/11/2023'),
+        synopsis: 'any_synopsis_2'
+      }],
+      hasMore: false,
+      length: 2,
+      limit: '100',
+      page: '1'
+    })
+  })
+  test('should return status 200 if call list sucessfully if logged user be admin', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'CONSULTER' })
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body).toEqual({
       content: [{
@@ -47,8 +71,26 @@ describe('FindAllMovieController', () => {
         hasMore: false
       }
     })
-    const response = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    const response = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'ADMIN' })
     expect(response.statusCode).toBe(204)
+  })
+  test('should return 401 unauthorized if logged user be cadastrer', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'CADASTRER' })
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
+  test('should return 401 unauthorized if logged user be cadastrer', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'MANAGER' })
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
+  test('should return 401 unauthorized if logged user be cadastrer', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'TRAINEE' })
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
   })
   test('should return statusCode 500 if controller throws', async () => {
     const { sut, list } = makeSut()
@@ -57,7 +99,7 @@ describe('FindAllMovieController', () => {
         reject(new Error())
       })
     })
-    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    const httpResponse = await sut.handle({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'ADMIN' })
     expect(httpResponse?.statusCode).toBe(500)
   })
 })

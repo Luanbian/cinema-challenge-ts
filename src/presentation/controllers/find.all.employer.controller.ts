@@ -2,10 +2,13 @@ import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
+import { type ControllerHandleInput } from '../../main/adapters/express.adapter'
 import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
 
-export interface FindAllEmployerControllerProps {
-  role?: Roles
+export interface FindAllEmployerControllerProps extends ControllerHandleInput {
+  loggedUser: {
+    role: Roles
+  }
 }
 
 export class FindAllEmployerController implements Controller<FindAllEmployerControllerProps> {
@@ -14,7 +17,8 @@ export class FindAllEmployerController implements Controller<FindAllEmployerCont
   public async handle (paramns: FindAllEmployerControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'consulter']
-      if (typeof paramns.role === 'undefined' || !permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+      if (typeof paramns.loggedUser.role === 'undefined' ||
+        !permitedRoles.includes(paramns.loggedUser.role.toLowerCase().trim())) {
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
       const res = await this.list.perform()

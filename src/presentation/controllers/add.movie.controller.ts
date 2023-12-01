@@ -2,11 +2,14 @@ import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type movieDto, type IcreateMovie } from '../../data/protocols/create.movie.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
+import { type ControllerHandleInput } from '../../main/adapters/express.adapter'
 import { created, serverError, unauthorized } from '../helpers/http.helper'
 
-export interface AddMovieControllerProps {
-  dto: movieDto
-  role?: Roles
+export interface AddMovieControllerProps extends ControllerHandleInput {
+  content: movieDto
+  loggedUser: {
+    role: Roles
+  }
 }
 
 export class AddMovieController implements Controller<AddMovieControllerProps> {
@@ -15,10 +18,11 @@ export class AddMovieController implements Controller<AddMovieControllerProps> {
   public async handle (paramns: AddMovieControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'cadastrer']
-      if (typeof paramns.role === 'undefined' || !permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+      if (typeof paramns.loggedUser.role === 'undefined' ||
+        !permitedRoles.includes(paramns.loggedUser.role.toLowerCase().trim())) {
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
-      const res = await this.create.perform(paramns.dto)
+      const res = await this.create.perform(paramns.content)
       return created(res)
     } catch (error) {
       console.error(error)

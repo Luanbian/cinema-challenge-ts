@@ -1,8 +1,13 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import { type Authenticate } from '../../data/protocols/authenticate.protocol'
+import { type Authenticate } from './protocol/authenticate.protocol'
+import { type JwtPayload } from 'jsonwebtoken'
+
+export interface CustomRequest extends Request {
+  decoded: JwtPayload
+}
 
 export default function makeAuthMiddleware (auth: Authenticate) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: CustomRequest, res: Response, next: NextFunction) => {
     const authToken = req.headers.authorization
     if (typeof authToken === 'undefined') {
       return res.status(401).json('Token not provided')
@@ -10,7 +15,8 @@ export default function makeAuthMiddleware (auth: Authenticate) {
     const bearer = authToken.split(' ')
     const token = bearer[1]
     try {
-      await auth.verifyToken(token)
+      const decoded = await auth.verifyToken(token)
+      req.decoded = decoded as JwtPayload
       next()
     } catch (error) {
       if (error.name === 'JsonWebTokenError') {

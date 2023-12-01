@@ -4,7 +4,7 @@ import { type movieDto } from '../../data/protocols/create.movie.protocol'
 import { AddEmployerController } from '../../presentation/controllers/add.employer.controller'
 import { AddMovieController } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
-import { FindAllMovieController, type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
+import { FindAllMovieController, type IParamns } from '../../presentation/controllers/find.all.movie.controller'
 import { type Iauth, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
 import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
 import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeLoginEmployer, makeUpdateMovieInTheater } from './usecase.factory'
@@ -14,7 +14,7 @@ export const makeAddMoviesController = (): Controller<movieDto> => {
   return new AddMovieController(create)
 }
 
-export const makeFindAllMoviesController = (): Controller<queryParamns> => {
+export const makeFindAllMoviesController = (): Controller<IParamns> => {
   const list = makeListMovie()
   return new FindAllMovieController(list)
 }

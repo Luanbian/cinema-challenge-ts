@@ -1,10 +1,10 @@
 import { type Movie } from '../../domain/entities/movie'
-import { type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
+import { type IParamns } from '../../presentation/controllers/find.all.movie.controller'
 import { type IlistMovie } from '../protocols/list.movie.protocol'
 
 export const makeListMock = (): IlistMovie => {
   class ListMock implements IlistMovie {
-    public async perform (paramns: queryParamns): Promise<{
+    public async perform (paramns: IParamns): Promise<{
       result: Movie[]
       length: number
       hasMore: boolean

@@ -1,5 +1,5 @@
 import { makeHttpMock } from '../../@types/mocks/http.mock'
-import makeRoute from '../adapters/express.adapter'
+import makeRoute from './express.adapter'
 
 describe('Express Adapter', () => {
   test('should return 200 if success', async () => {

@@ -1,14 +1,15 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
-import { noContent, ok, serverError } from '../helpers/http.helper'
+import { type Roles } from '../../domain/enums/roles.enum'
+import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
 
 export interface IParamns {
   column?: string
   type?: 'asc' | 'desc'
   limit?: string
   page?: string
-  role: string
+  role: Roles
 }
 
 export class FindAllMovieController implements Controller<IParamns> {
@@ -16,6 +17,10 @@ export class FindAllMovieController implements Controller<IParamns> {
 
   public async handle (paramns: IParamns): Promise<HttpResponse> {
     try {
+      const permitedRoles = ['admin', 'consulter']
+      if (!permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+        return unauthorized('Você não tem permissão para acessar essa rota')
+      }
       const res = await this.list.perform(paramns)
       if (res.length === 0) return noContent()
       const body = {

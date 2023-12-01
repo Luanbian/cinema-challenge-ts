@@ -1,4 +1,4 @@
-import { JwtAdapter } from '../../data/auth/jwt.adapter'
+import { JwtAdapter } from '../../middleware/auth/jwt.adapter'
 import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
 import { type Authenticate } from '../../data/protocols/authenticate.protocol'
 import { type Encrypter } from '../../data/protocols/encrypter.protocol'

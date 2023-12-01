@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { JwtAdapter } from '../auth/jwt.adapter'
+import { JwtAdapter } from '../../middleware/auth/jwt.adapter'
 import { type Employer } from '../../domain/entities/employer'
 
 jest.mock('jsonwebtoken', () => ({

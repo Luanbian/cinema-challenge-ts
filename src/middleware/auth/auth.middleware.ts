@@ -10,8 +10,7 @@ export default function makeAuthMiddleware (auth: Authenticate) {
     const bearer = authToken.split(' ')
     const token = bearer[1]
     try {
-      const decoded = await auth.verifyToken(token)
-      console.log(decoded)
+      await auth.verifyToken(token)
       next()
     } catch (error) {
       console.error(error)

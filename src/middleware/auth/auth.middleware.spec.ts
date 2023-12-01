@@ -1,7 +1,6 @@
-import { type Request } from 'express'
 import { makeHttpMock } from '../../@types/mocks/http.mock'
 import { makeAuthenticateStub } from '../../data/mocks/authenticate.mock'
-import makeAuthMiddleware from './auth.middleware'
+import makeAuthMiddleware, { type CustomRequest as Request } from './auth.middleware'
 
 const authenticateStub = makeAuthenticateStub()
 const sut = makeAuthMiddleware(authenticateStub)

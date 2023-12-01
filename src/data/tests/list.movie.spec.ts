@@ -15,7 +15,7 @@ const makeSut = (): sutTypes => {
 describe('ListMovie', () => {
   test('should list movies', async () => {
     const { sut } = makeSut()
-    const movies = await sut.perform({ column: 'name', type: 'asc', limit: '100', page: '1' })
+    const movies = await sut.perform({ column: 'name', type: 'asc', limit: '100', page: '1', role: 'ADMIN' })
     expect(movies).toEqual({
       result: [
         {

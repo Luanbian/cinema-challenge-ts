@@ -4,7 +4,7 @@ import { AddMovieController, type AddMovieControllerProps } from '../../presenta
 import { FindAllEmployerController, type FindAllEmployerControllerProps } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type FindAllMovieControllerProps } from '../../presentation/controllers/find.all.movie.controller'
 import { type LoginEmployerControllerProps, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
-import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
+import { UpdateMovieInTheaterController, type UpdateMovieInTheaterControllerProps } from '../../presentation/controllers/update.movie.inTheater.controller'
 import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeLoginEmployer, makeUpdateMovieInTheater } from './usecase.factory'
 
 export const makeAddMoviesController = (): Controller<AddMovieControllerProps> => {
@@ -27,7 +27,7 @@ export const makeAddEmployerController = (): Controller<AddEmployerControllerPro
   return new AddEmployerController(create)
 }
 
-export const makeUpdateMovieInTheaterController = (): Controller<idParam> => {
+export const makeUpdateMovieInTheaterController = (): Controller<UpdateMovieInTheaterControllerProps> => {
   const update = makeUpdateMovieInTheater()
   return new UpdateMovieInTheaterController(update)
 }

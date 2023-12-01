@@ -18,7 +18,7 @@ describe('UpdateMovieInTheater', () => {
   test('should call repository with correct value', async () => {
     const { sut, repository } = makeSut()
     const repoSpy = jest.spyOn(repository, 'alter')
-    await sut.perform({ id: 'id_movie' })
+    await sut.perform('id_movie')
     expect(repoSpy).toHaveBeenCalledWith('id_movie')
   })
   test('should return null if id not exist', async () => {
@@ -27,7 +27,7 @@ describe('UpdateMovieInTheater', () => {
       return null
     })
     const id = 'invalid_id'
-    const usecase = await sut.perform({ id })
+    const usecase = await sut.perform(id)
     expect(usecase).toBe(null)
   })
 })

@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { type Authenticate } from '../../data/protocols/authenticate.protocol'
 import { type Employer } from '../../domain/entities/employer'
 
@@ -10,7 +10,7 @@ export class JwtAdapter implements Authenticate {
     return token
   }
 
-  public async verifyToken (token: string): Promise<string | jwt.JwtPayload> {
+  public async verifyToken (token: string): Promise<string | JwtPayload> {
     const decoded = jwt.verify(token, this.secret)
     return decoded
   }

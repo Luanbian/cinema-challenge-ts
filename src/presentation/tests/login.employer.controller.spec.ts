@@ -1,6 +1,6 @@
 import { makeLoginMock } from '../../data/mocks/login.employer.mock'
 import { type Ilogin } from '../../data/protocols/login.employer.protocol'
-import { type Iauth, LoginEmployerController } from '../controllers/login.employer.controller'
+import { type LoginEmployerControllerProps, LoginEmployerController } from '../controllers/login.employer.controller'
 import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
@@ -18,7 +18,7 @@ describe('LoginEmployerController', () => {
   test('should call usecase with correct values', async () => {
     const { sut, login } = makeSut()
     const loginSpy = jest.spyOn(login, 'perform')
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'valid_email',
       password: '1234'
     }
@@ -27,7 +27,7 @@ describe('LoginEmployerController', () => {
   })
   test('should return status code 200 if user autorized with success', async () => {
     const { sut } = makeSut()
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'valid_email',
       password: '1234'
     }
@@ -40,7 +40,7 @@ describe('LoginEmployerController', () => {
     jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
       throw new ExpectedError('usuário não encontrado')
     })
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'invalid_email',
       password: '1234'
     }
@@ -53,7 +53,7 @@ describe('LoginEmployerController', () => {
     jest.spyOn(login, 'perform').mockImplementationOnce(async () => {
       throw new ExpectedError('senha incorreta')
     })
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'invalid_email',
       password: '1234'
     }
@@ -68,7 +68,7 @@ describe('LoginEmployerController', () => {
         reject(new Error())
       })
     })
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'invalid_email',
       password: '1234'
     }

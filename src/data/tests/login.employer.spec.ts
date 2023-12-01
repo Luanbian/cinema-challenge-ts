@@ -1,6 +1,6 @@
 import { makeFindUserByAuthStub } from '../../infra/mocks/find.user.by.auth.mock'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
-import { type Iauth } from '../../presentation/controllers/login.employer.controller'
+import { type LoginEmployerControllerProps } from '../../presentation/controllers/login.employer.controller'
 import { makeAuthenticateStub } from '../mocks/authenticate.mock'
 import { makeEncrypterStub } from '../mocks/encrypter.mock'
 import { type Encrypter } from '../criptography/protocol/encrypter.protocol'
@@ -25,7 +25,7 @@ describe('LoginEmployer', () => {
   test('should call repository with correct values', async () => {
     const { sut, repository } = makeSut()
     const repoSpy = jest.spyOn(repository, 'findUserByAuth')
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'valid_email',
       password: '1234'
     }
@@ -34,7 +34,7 @@ describe('LoginEmployer', () => {
   })
   test('should return token if user finded and password match with success', async () => {
     const { sut } = makeSut()
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'valid_email',
       password: 'valid_password'
     }
@@ -46,7 +46,7 @@ describe('LoginEmployer', () => {
     jest.spyOn(repository, 'findUserByAuth').mockImplementationOnce(async () => {
       return null
     })
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'invalid_email',
       password: '1234'
     }
@@ -58,7 +58,7 @@ describe('LoginEmployer', () => {
     jest.spyOn(bcryptStub, 'matchPassword').mockImplementationOnce(async () => {
       return false
     })
-    const auth: Iauth = {
+    const auth: LoginEmployerControllerProps = {
       email: 'invalid_email',
       password: 'invalid_password'
     }

@@ -3,7 +3,7 @@ import { AddEmployerController, type AddEmployerControllerProps } from '../../pr
 import { AddMovieController, type AddMovieControllerProps } from '../../presentation/controllers/add.movie.controller'
 import { FindAllEmployerController, type FindAllEmployerControllerProps } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type FindAllMovieControllerProps } from '../../presentation/controllers/find.all.movie.controller'
-import { type Iauth, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
+import { type LoginEmployerControllerProps, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
 import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
 import { makeCreateEmployer, makeCreateMovie, makeListEmployer, makeListMovie, makeLoginEmployer, makeUpdateMovieInTheater } from './usecase.factory'
 
@@ -32,7 +32,7 @@ export const makeUpdateMovieInTheaterController = (): Controller<idParam> => {
   return new UpdateMovieInTheaterController(update)
 }
 
-export const makeLoginEmployerController = (): Controller<Iauth> => {
+export const makeLoginEmployerController = (): Controller<LoginEmployerControllerProps> => {
   const login = makeLoginEmployer()
   return new LoginEmployerController(login)
 }

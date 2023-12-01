@@ -1,7 +1,7 @@
 import { type Controller } from '../../@types/controller'
 import { AddEmployerController, type AddEmployerControllerProps } from '../../presentation/controllers/add.employer.controller'
 import { AddMovieController, type AddMovieControllerProps } from '../../presentation/controllers/add.movie.controller'
-import { FindAllEmployerController } from '../../presentation/controllers/find.all.employer.controller'
+import { FindAllEmployerController, type FindAllEmployerControllerProps } from '../../presentation/controllers/find.all.employer.controller'
 import { FindAllMovieController, type IParamns } from '../../presentation/controllers/find.all.movie.controller'
 import { type Iauth, LoginEmployerController } from '../../presentation/controllers/login.employer.controller'
 import { UpdateMovieInTheaterController, type idParam } from '../../presentation/controllers/update.movie.inTheater.controller'
@@ -17,7 +17,7 @@ export const makeFindAllMoviesController = (): Controller<IParamns> => {
   return new FindAllMovieController(list)
 }
 
-export const makeFindAllEmployersController = (): Controller<null> => {
+export const makeFindAllEmployersController = (): Controller<FindAllEmployerControllerProps> => {
   const list = makeListEmployer()
   return new FindAllEmployerController(list)
 }

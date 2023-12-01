@@ -89,6 +89,16 @@ describe('UpdateMovieInTheaterController', () => {
     expect(httpResponse.statusCode).toBe(401)
     expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
   })
+  test('should return 401 unauthorized if user not be logged', async () => {
+    const { sut } = makeSut()
+    const paramns: UpdateMovieInTheaterControllerProps = {
+      id: 'valid_id',
+      role: undefined
+    }
+    const httpResponse = await sut.handle(paramns)
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
   test('should return status code 500 if controller throws', async () => {
     const { sut, update } = makeSut()
     jest.spyOn(update, 'perform').mockImplementationOnce(async () => {

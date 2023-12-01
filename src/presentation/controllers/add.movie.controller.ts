@@ -6,7 +6,7 @@ import { created, serverError, unauthorized } from '../helpers/http.helper'
 
 export interface AddMovieControllerProps {
   dto: movieDto
-  role: Roles
+  role?: Roles
 }
 
 export class AddMovieController implements Controller<AddMovieControllerProps> {
@@ -15,7 +15,7 @@ export class AddMovieController implements Controller<AddMovieControllerProps> {
   public async handle (paramns: AddMovieControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'cadastrer']
-      if (!permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+      if (typeof paramns.role === 'undefined' || !permitedRoles.includes(paramns.role.toLowerCase().trim())) {
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
       const res = await this.create.perform(paramns.dto)

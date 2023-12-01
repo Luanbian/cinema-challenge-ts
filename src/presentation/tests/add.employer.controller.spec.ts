@@ -107,6 +107,22 @@ describe('AddEmployerController', () => {
     expect(httpResponse.statusCode).toBe(401)
     expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
   })
+  test('should return 401 unauthorized if user not be logged', async () => {
+    const { sut } = makeSut()
+    const paramns: AddEmployerControllerProps = {
+      dto: {
+        id: 'valid_test_id',
+        name: 'test',
+        email: 'test@email.com',
+        password: '****',
+        role: Roles.ADMIN
+      },
+      role: undefined
+    }
+    const httpResponse = await sut.handle(paramns)
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
   test('should return status code 500 if controller throws', async () => {
     const { sut, create } = makeSut()
     jest.spyOn(create, 'perform').mockImplementationOnce(async () => {

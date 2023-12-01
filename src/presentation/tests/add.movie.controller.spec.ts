@@ -106,6 +106,22 @@ describe('AddMovieController', () => {
     expect(httpResponse.statusCode).toBe(401)
     expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
   })
+  test('should return 401 unauthorized if user not be logged', async () => {
+    const { sut } = makeSut()
+    const input: AddMovieControllerProps = {
+      dto: {
+        id: 'valid_test_id',
+        name: 'any_name',
+        synopsis: 'any_synopsis',
+        releaseDate: '01/11/2023',
+        inTheaters: true
+      },
+      role: undefined
+    }
+    const httpResponse = await sut.handle(input)
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
   test('should return statusCode 500 if controller throws', async () => {
     const { sut, createMovieMock } = makeSut()
     jest.spyOn(createMovieMock, 'perform').mockImplementationOnce(async () => {

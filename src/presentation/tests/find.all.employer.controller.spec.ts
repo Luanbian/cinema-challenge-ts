@@ -89,6 +89,15 @@ describe('FindAllEmployerController', () => {
     expect(httpResponse.statusCode).toBe(401)
     expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
   })
+  test('should return 401 unauthorized if user not be logged', async () => {
+    const { sut } = makeSut()
+    const paramns: FindAllEmployerControllerProps = {
+      role: undefined
+    }
+    const httpResponse = await sut.handle(paramns)
+    expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual('Você não tem permissão para acessar essa rota')
+  })
   test('should return status code 204 if no content', async () => {
     const { sut, list } = makeSut()
     const paramns: FindAllEmployerControllerProps = {

@@ -9,7 +9,7 @@ export interface FindAllMovieControllerProps {
   type?: 'asc' | 'desc'
   limit?: string
   page?: string
-  role: Roles
+  role?: Roles
 }
 
 export class FindAllMovieController implements Controller<FindAllMovieControllerProps> {
@@ -18,7 +18,7 @@ export class FindAllMovieController implements Controller<FindAllMovieController
   public async handle (paramns: FindAllMovieControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'consulter']
-      if (!permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+      if (typeof paramns.role === 'undefined' || !permitedRoles.includes(paramns.role.toLowerCase().trim())) {
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
       const res = await this.list.perform(paramns)

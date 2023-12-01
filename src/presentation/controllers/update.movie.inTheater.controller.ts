@@ -6,7 +6,7 @@ import { notFound, ok, serverError, unauthorized } from '../helpers/http.helper'
 
 export interface UpdateMovieInTheaterControllerProps {
   id: string
-  role: Roles
+  role?: Roles
 }
 
 export class UpdateMovieInTheaterController implements Controller<UpdateMovieInTheaterControllerProps> {
@@ -15,7 +15,7 @@ export class UpdateMovieInTheaterController implements Controller<UpdateMovieInT
   public async handle (paramns: UpdateMovieInTheaterControllerProps): Promise<HttpResponse> {
     try {
       const permitedRoles = ['admin', 'manager']
-      if (!permitedRoles.includes(paramns.role.toLowerCase().trim())) {
+      if (typeof paramns.role === 'undefined' || !permitedRoles.includes(paramns.role.toLowerCase().trim())) {
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
       const res = await this.update.perform(paramns.id)

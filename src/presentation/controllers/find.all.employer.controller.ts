@@ -2,10 +2,9 @@ import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type IlistEmployer } from '../../data/protocols/list.employer.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
-import { type ControllerHandleInput } from '../../main/adapters/express.adapter'
 import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
 
-export interface FindAllEmployerControllerProps extends ControllerHandleInput {
+export interface FindAllEmployerControllerProps {
   loggedUser: {
     role: Roles
   }

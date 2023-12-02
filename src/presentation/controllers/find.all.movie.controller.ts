@@ -2,16 +2,16 @@ import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
-import { type ControllerHandleInput } from '../../main/adapters/express.adapter'
 import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
 
-export interface FindAllMovieControllerProps extends ControllerHandleInput {
-  content: {
-    column?: string
-    type?: 'asc' | 'desc'
-    limit?: string
-    page?: string
-  }
+export interface queryParamns {
+  column?: string
+  type?: 'asc' | 'desc'
+  limit?: string
+  page?: string
+}
+
+export interface FindAllMovieControllerProps extends queryParamns {
   loggedUser: {
     role?: Roles
   }
@@ -31,8 +31,8 @@ export class FindAllMovieController implements Controller<FindAllMovieController
       if (res.length === 0) return noContent()
       const body = {
         length: res.length,
-        limit: paramns.content.limit,
-        page: paramns.content.page,
+        limit: paramns.limit,
+        page: paramns.page,
         hasMore: res.hasMore,
         content: res.result
       }

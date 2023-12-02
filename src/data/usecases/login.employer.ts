@@ -14,8 +14,8 @@ export class LoginEmployer implements Ilogin {
   ) {}
 
   public async perform (auth: LoginEmployerControllerProps): Promise<string> {
-    const user = await this.findUserByEmail(auth.content.email)
-    await this.checkPassword(auth.content.password, user.password)
+    const user = await this.findUserByEmail(auth.email)
+    await this.checkPassword(auth.password, user.password)
     const token = await this.auth.generateToken(user)
     return token
   }

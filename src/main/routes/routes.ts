@@ -13,7 +13,7 @@ export default (router: Router): void => {
   router.put('/api/movies/:id', auth, makeRoute(makeUpdateMovieInTheaterController()))
 
   router.get('/api/employers', auth, makeRoute(makeFindAllEmployersController()))
-  router.post('/api/employers', validateEmployerInput, handleValidation, makeRoute(makeAddEmployerController()))
+  router.post('/api/employers', auth, validateEmployerInput, handleValidation, makeRoute(makeAddEmployerController()))
 
   router.post('/api/login', validateLoginInput, handleValidation, makeRoute(makeLoginEmployerController()))
 }

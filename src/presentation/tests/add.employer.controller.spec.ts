@@ -18,14 +18,14 @@ describe('AddEmployerController', () => {
   test('should return status code 201 and employer entity if loggeed user be admin with success', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'ADMIN'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(201)
@@ -40,14 +40,14 @@ describe('AddEmployerController', () => {
   test('should return status code 201 and employer entity if loggeed user be cadastrer with success', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'CADASTRER'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'CADASTRER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(201)
@@ -62,14 +62,14 @@ describe('AddEmployerController', () => {
   test('should return 401 unauthorized if logged user be manager', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'MANAGER'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'MANAGER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -78,14 +78,14 @@ describe('AddEmployerController', () => {
   test('should return 401 unauthorized if logged user be consulter', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'CONSULTER'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'CONSULTER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -94,14 +94,14 @@ describe('AddEmployerController', () => {
   test('should return 401 unauthorized if logged user be trainee', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'TRAINEE'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'TRAINEE'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -110,14 +110,14 @@ describe('AddEmployerController', () => {
   test('should return 401 unauthorized if user not be logged', async () => {
     const { sut } = makeSut()
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: undefined
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: undefined
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -131,14 +131,14 @@ describe('AddEmployerController', () => {
       })
     })
     const paramns: AddEmployerControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'test',
-        email: 'test@email.com',
-        password: '****',
-        role: Roles.ADMIN
-      },
-      role: 'ADMIN'
+      id: 'valid_test_id',
+      name: 'test',
+      email: 'test@email.com',
+      password: '****',
+      role: Roles.ADMIN,
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(500)

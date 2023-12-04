@@ -1,5 +1,11 @@
 import { type Movie } from '../../domain/entities/movie'
-import { type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
+
+export interface queryParamns {
+  column?: string
+  type?: 'asc' | 'desc'
+  limit?: string
+  page?: string
+}
 
 export interface IlistMovie {
   perform: (paramns: queryParamns) => Promise<{

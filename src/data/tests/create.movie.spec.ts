@@ -1,6 +1,6 @@
 import { parse } from 'date-fns'
 import { type IsaveMovies } from '../../infra/protocols/save.movies.protocols'
-import { type IcreateMovie } from '../protocols/create.movie.protocol'
+import { type movieDto, type IcreateMovie } from '../protocols/create.movie.protocol'
 import { CreateMovie } from '../usecases/create.movie'
 import { makeSaveMoviesStub } from '../../infra/mocks/save.movie.mock'
 
@@ -18,7 +18,7 @@ const makeSut = (): sutTypes => {
 describe('CreateMovie', () => {
   test('should return a Movie Entity', async () => {
     const { sut } = makeSut()
-    const input = {
+    const input: movieDto = {
       id: 'valid_test_id',
       name: 'any_name',
       synopsis: 'any_synopsis',
@@ -33,5 +33,18 @@ describe('CreateMovie', () => {
       releaseDate: parse(input.releaseDate, 'dd/MM/yyyy', new Date()),
       inTheaters: true
     })
+  })
+  test('should call repository with correct values', async () => {
+    const { sut, repositoryStub } = makeSut()
+    const repositorySpy = jest.spyOn(repositoryStub, 'save')
+    const input: movieDto = {
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true
+    }
+    const movie = await sut.perform(input)
+    expect(repositorySpy).toHaveBeenCalledWith(movie)
   })
 })

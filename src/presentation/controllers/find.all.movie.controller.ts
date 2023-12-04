@@ -1,15 +1,8 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
-import { type IlistMovie } from '../../data/protocols/list.movie.protocol'
+import { type queryParamns, type IlistMovie } from '../../data/protocols/list.movie.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
 import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper'
-
-export interface queryParamns {
-  column?: string
-  type?: 'asc' | 'desc'
-  limit?: string
-  page?: string
-}
 
 export interface FindAllMovieControllerProps extends queryParamns {
   loggedUser: {

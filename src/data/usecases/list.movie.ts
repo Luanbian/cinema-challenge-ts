@@ -1,7 +1,6 @@
 import { type Movie } from '../../domain/entities/movie'
 import { type IfindAllMovies } from '../../infra/protocols/find.all.movies.protocols'
-import { type queryParamns } from '../../presentation/controllers/find.all.movie.controller'
-import { type IlistMovie } from '../protocols/list.movie.protocol'
+import { type queryParamns, type IlistMovie } from '../protocols/list.movie.protocol'
 
 export class ListMovie implements IlistMovie {
   constructor (private readonly repository: IfindAllMovies) {}

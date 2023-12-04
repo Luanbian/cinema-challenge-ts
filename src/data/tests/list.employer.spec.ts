@@ -6,13 +6,13 @@ import { makeFindAllEmployersStub } from '../../infra/mocks/find.all.employers.m
 
 interface SutProps {
   sut: IlistEmployer
-  repository: IfindAllEmployers
+  repositoryStub: IfindAllEmployers
 }
 
 const makeSut = (): SutProps => {
-  const repository = makeFindAllEmployersStub()
-  const sut = new ListEmployer(repository)
-  return { sut, repository }
+  const repositoryStub = makeFindAllEmployersStub()
+  const sut = new ListEmployer(repositoryStub)
+  return { sut, repositoryStub }
 }
 describe('ListEmployer', () => {
   test('should list employers', async () => {
@@ -32,5 +32,11 @@ describe('ListEmployer', () => {
       role: Roles.ADMIN
     }])
     expect(employers.length).toBe(employers.result.length)
+  })
+  test('should call repository', async () => {
+    const { sut, repositoryStub } = makeSut()
+    const repositorySpy = jest.spyOn(repositoryStub, 'findAll')
+    await sut.perform()
+    expect(repositorySpy).toHaveBeenCalled()
   })
 })

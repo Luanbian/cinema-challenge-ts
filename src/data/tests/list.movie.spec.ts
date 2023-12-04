@@ -1,15 +1,17 @@
 import { makeFindAllMoviesStub } from '../../infra/mocks/find.all.movies.mock'
-import { type IlistMovie } from '../protocols/list.movie.protocol'
+import { type IfindAllMovies } from '../../infra/protocols/find.all.movies.protocols'
+import { type queryParamns, type IlistMovie } from '../protocols/list.movie.protocol'
 import { ListMovie } from '../usecases/list.movie'
 
 interface sutTypes {
   sut: IlistMovie
+  repositoryStub: IfindAllMovies
 }
 
 const makeSut = (): sutTypes => {
-  const repository = makeFindAllMoviesStub()
-  const sut = new ListMovie(repository)
-  return { sut }
+  const repositoryStub = makeFindAllMoviesStub()
+  const sut = new ListMovie(repositoryStub)
+  return { sut, repositoryStub }
 }
 
 describe('ListMovie', () => {
@@ -36,5 +38,17 @@ describe('ListMovie', () => {
       length: 2,
       hasMore: false
     })
+  })
+  test('should call repository with correct values', async () => {
+    const { sut, repositoryStub } = makeSut()
+    const repositorySpy = jest.spyOn(repositoryStub, 'findAll')
+    const paramns: queryParamns = {
+      column: 'name',
+      type: 'asc',
+      limit: '100',
+      page: '1'
+    }
+    await sut.perform(paramns)
+    expect(repositorySpy).toHaveBeenCalledWith(paramns)
   })
 })

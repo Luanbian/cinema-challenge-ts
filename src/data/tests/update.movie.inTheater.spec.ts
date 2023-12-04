@@ -30,4 +30,19 @@ describe('UpdateMovieInTheater', () => {
     const usecase = await sut.perform(id)
     expect(usecase).toBe(null)
   })
+  test('should return after object if updated with success', async () => {
+    const { sut } = makeSut()
+    const id = 'valid_id'
+    const usecase = await sut.perform(id)
+    expect(usecase).toEqual({
+      action: 'update',
+      after: {
+        id: 'id_movie',
+        name: 'any_movie',
+        synopsis: 'any_sinopsys',
+        inTheaters: false,
+        releaseDate: new Date('01/11/2023')
+      }
+    })
+  })
 })

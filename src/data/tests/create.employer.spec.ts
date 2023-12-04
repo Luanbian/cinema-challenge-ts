@@ -51,4 +51,17 @@ describe('CreateEmployer', () => {
       role: Roles.CADASTRER
     })
   })
+  test('should call repository with correct values', async () => {
+    const { sut, repositoryStub } = makeSut()
+    const repositorySpy = jest.spyOn(repositoryStub, 'save')
+    const props: EmployerDto = {
+      id: 'valid_test_id',
+      name: 'employer_name',
+      email: 'employer@email',
+      password: '1234',
+      role: Roles.CADASTRER
+    }
+    const employer = await sut.perform(props)
+    expect(repositorySpy).toHaveBeenCalledWith(employer)
+  })
 })

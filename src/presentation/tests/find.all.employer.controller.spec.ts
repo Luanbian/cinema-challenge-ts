@@ -17,7 +17,9 @@ describe('FindAllEmployerController', () => {
   test('should return status 200 and list employers if logged user be admin with success', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'ADMIN'
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(200)
@@ -41,7 +43,9 @@ describe('FindAllEmployerController', () => {
   test('should return status 200 and list employers if logged user be consulter with success', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'CONSULTER'
+      loggedUser: {
+        role: 'CONSULTER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(200)
@@ -65,7 +69,9 @@ describe('FindAllEmployerController', () => {
   test('should return 401 unauthorized if logged user be manager', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'MANAGER'
+      loggedUser: {
+        role: 'MANAGER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -74,7 +80,9 @@ describe('FindAllEmployerController', () => {
   test('should return 401 unauthorized if logged user be cadastrer', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'CADASTRER'
+      loggedUser: {
+        role: 'CADASTRER'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -83,7 +91,9 @@ describe('FindAllEmployerController', () => {
   test('should return 401 unauthorized if logged user be trainee', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'TRAINEE'
+      loggedUser: {
+        role: 'TRAINEE'
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -92,7 +102,9 @@ describe('FindAllEmployerController', () => {
   test('should return 401 unauthorized if user not be logged', async () => {
     const { sut } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: undefined
+      loggedUser: {
+        role: undefined
+      }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -101,7 +113,9 @@ describe('FindAllEmployerController', () => {
   test('should return status code 204 if no content', async () => {
     const { sut, list } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'ADMIN'
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
       return {
@@ -115,7 +129,9 @@ describe('FindAllEmployerController', () => {
   test('should return status code 500 server error if controller throws', async () => {
     const { sut, list } = makeSut()
     const paramns: FindAllEmployerControllerProps = {
-      role: 'ADMIN'
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     jest.spyOn(list, 'perform').mockImplementationOnce(async () => {
       return await new Promise((resolve, reject) => {

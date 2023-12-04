@@ -17,14 +17,14 @@ describe('AddMovieController', () => {
   test('should return statusCode 201 and movie entity if logged user be admin with success', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'ADMIN'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(201)
@@ -39,14 +39,14 @@ describe('AddMovieController', () => {
   test('should return statusCode 201 and movie entity if logged user be cadastrer with success', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'CADASTRER'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'CADASTRER'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(201)
@@ -61,14 +61,14 @@ describe('AddMovieController', () => {
   test('should return 401 unauthorized if logged user be manager', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'MANAGER'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'MANAGER'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(401)
@@ -77,14 +77,14 @@ describe('AddMovieController', () => {
   test('should return 401 unauthorized if logged user be consulter', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'CONSULTER'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'CONSULTER'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(401)
@@ -93,14 +93,14 @@ describe('AddMovieController', () => {
   test('should return 401 unauthorized if logged user be trainee', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'TRAINEE'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'TRAINEE'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(401)
@@ -109,14 +109,14 @@ describe('AddMovieController', () => {
   test('should return 401 unauthorized if user not be logged', async () => {
     const { sut } = makeSut()
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: undefined
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: undefined
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse.statusCode).toBe(401)
@@ -130,14 +130,14 @@ describe('AddMovieController', () => {
       })
     })
     const input: AddMovieControllerProps = {
-      dto: {
-        id: 'valid_test_id',
-        name: 'any_name',
-        synopsis: 'any_synopsis',
-        releaseDate: '01/11/2023',
-        inTheaters: true
-      },
-      role: 'CADASTRER'
+      id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true,
+      loggedUser: {
+        role: 'ADMIN'
+      }
     }
     const httpResponse = await sut.handle(input)
     expect(httpResponse?.statusCode).toBe(500)

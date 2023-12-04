@@ -6,7 +6,7 @@ import { noContent, ok, serverError, unauthorized } from '../helpers/http.helper
 
 export interface FindAllEmployerControllerProps {
   loggedUser: {
-    role: Roles
+    role?: Roles
   }
 }
 

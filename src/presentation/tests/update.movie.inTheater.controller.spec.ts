@@ -16,7 +16,7 @@ const makeSut = (): SutProps => {
 describe('UpdateMovieInTheaterController', () => {
   test('should return status code 200 and after if logged user be admin success', async () => {
     const { sut } = makeSut()
-    const httpResponse = await sut.handle({ id: 'valid_id_movie', role: 'ADMIN' })
+    const httpResponse = await sut.handle({ id: 'valid_id_movie', loggedUser: { role: 'ADMIN' } })
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body).toEqual({
       action: 'update',
@@ -31,7 +31,7 @@ describe('UpdateMovieInTheaterController', () => {
   })
   test('should return status code 200 and after if logged user be manager success', async () => {
     const { sut } = makeSut()
-    const httpResponse = await sut.handle({ id: 'valid_id_movie', role: 'MANAGER' })
+    const httpResponse = await sut.handle({ id: 'valid_id_movie', loggedUser: { role: 'MANAGER' } })
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body).toEqual({
       action: 'update',
@@ -63,7 +63,7 @@ describe('UpdateMovieInTheaterController', () => {
     const { sut } = makeSut()
     const paramns: UpdateMovieInTheaterControllerProps = {
       id: 'valid_id',
-      role: 'CONSULTER'
+      loggedUser: { role: 'CONSULTER' }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -73,7 +73,7 @@ describe('UpdateMovieInTheaterController', () => {
     const { sut } = makeSut()
     const paramns: UpdateMovieInTheaterControllerProps = {
       id: 'valid_id',
-      role: 'CADASTRER'
+      loggedUser: { role: 'CADASTRER' }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -83,7 +83,7 @@ describe('UpdateMovieInTheaterController', () => {
     const { sut } = makeSut()
     const paramns: UpdateMovieInTheaterControllerProps = {
       id: 'valid_id',
-      role: 'TRAINEE'
+      loggedUser: { role: 'TRAINEE' }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -93,7 +93,7 @@ describe('UpdateMovieInTheaterController', () => {
     const { sut } = makeSut()
     const paramns: UpdateMovieInTheaterControllerProps = {
       id: 'valid_id',
-      role: undefined
+      loggedUser: { role: undefined }
     }
     const httpResponse = await sut.handle(paramns)
     expect(httpResponse.statusCode).toBe(401)
@@ -106,7 +106,7 @@ describe('UpdateMovieInTheaterController', () => {
         reject(new Error())
       })
     })
-    const httpResponse = await sut.handle({ id: 'movie_id', role: 'ADMIN' })
+    const httpResponse = await sut.handle({ id: 'movie_id', loggedUser: { role: 'ADMIN' } })
     expect(httpResponse.statusCode).toBe(500)
   })
   test('should return status code 404 if id not found', async () => {
@@ -114,7 +114,7 @@ describe('UpdateMovieInTheaterController', () => {
     jest.spyOn(update, 'perform').mockImplementationOnce(async () => {
       return null
     })
-    const httpResponse = await sut.handle({ id: 'invalid_id_movie', role: 'ADMIN' })
+    const httpResponse = await sut.handle({ id: 'movie_id', loggedUser: { role: 'ADMIN' } })
     expect(httpResponse.statusCode).toBe(404)
     expect(httpResponse.body).toEqual('id not found')
   })

@@ -1,5 +1,8 @@
-import { type LoginEmployerControllerProps } from '../../presentation/controllers/login.employer.controller'
+export interface Iauth {
+  email: string
+  password: string
+}
 
 export interface Ilogin {
-  perform: (auth: LoginEmployerControllerProps) => Promise<string>
+  perform: (auth: Iauth) => Promise<string>
 }

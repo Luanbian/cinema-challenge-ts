@@ -1,10 +1,9 @@
 import { type Employer } from '../../domain/entities/employer'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
-import { type LoginEmployerControllerProps } from '../../presentation/controllers/login.employer.controller'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type Authenticate } from '../../middleware/auth/protocol/authenticate.protocol'
 import { type Encrypter } from '../criptography/protocol/encrypter.protocol'
-import { type Ilogin } from '../protocols/login.employer.protocol'
+import { type Iauth, type Ilogin } from '../protocols/login.employer.protocol'
 
 export class LoginEmployer implements Ilogin {
   constructor (
@@ -13,7 +12,7 @@ export class LoginEmployer implements Ilogin {
     private readonly auth: Authenticate
   ) {}
 
-  public async perform (auth: LoginEmployerControllerProps): Promise<string> {
+  public async perform (auth: Iauth): Promise<string> {
     const user = await this.findUserByEmail(auth.email)
     await this.checkPassword(auth.password, user.password)
     const token = await this.auth.generateToken(user)

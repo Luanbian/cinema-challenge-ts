@@ -17,11 +17,11 @@
     "seed": "npx prisma db seed",
     "migrate": "npx prisma migrate deploy",
     "load-test-ambient": "npm run load-env-test -- \"npx prisma generate && npm run migrate && npm run seed\"",
-    "load-prod-ambient": "npm run load-env -- \"npx prisma generate && npm run migrate && npm run seed\"",
-    "start": "ts-node src/main/index.ts",
+    "load-prod-ambient": "npm run load-env -- \"npx prisma generate && npm run migrate\"",
     "test": "jest --passWithNoTests --watchAll --silent --runInBand",
     "test:unit": "npm test -- --watchAll -c jest.unit.config.js",
     "test:integration": "npm run load-test-ambient && npm test -- --watchAll -c jest.integration.config.js",
+    "start": "ts-node src/main/index.ts",
     "start:prod": "npm run load-prod-ambient && npm start",
     "start:dev": "npm run load-test-ambient && npm start"
   },

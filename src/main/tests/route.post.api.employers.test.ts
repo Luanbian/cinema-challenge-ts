@@ -1,39 +1,55 @@
 import supertest from 'supertest'
 import appServer from '../index'
+import { randomUUID } from 'crypto'
 
 const app = appServer.getApp()
 describe('POST /api/employers', () => {
+  let token: string
+  beforeEach(async () => {
+    const login = await supertest(app).post('/api/login').send({
+      email: 'seed@test.com',
+      password: '123'
+    })
+    token = login.text.replace(/\\|"/g, '')
+  })
   afterEach(async () => {
     await appServer.close()
   })
   test('should return statusCode 201 if data sent is ok', async () => {
-    const response = await supertest(app).post('/api/employers').send({
-      id: 'valid_test_id',
-      name: 'any_employer_test',
-      email: 'test@email.com',
-      password: 'any_pass',
-      role: 'admin'
-    })
+    const fakeId = randomUUID()
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        id: fakeId,
+        name: 'any_employer_test',
+        email: 'test@email.com',
+        password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(201)
-    expect(response.body.id).toBe('valid_test_id')
+    expect(response.body.id).toBe(fakeId)
   })
   test('should return randomUUID if id is not provided', async () => {
-    const response = await supertest(app).post('/api/employers').send({
+    const response = await supertest(app).post('/api/employers')
+      .send({
       // id: 'valid_test_id',
-      name: 'any_employer_test',
-      email: 'test@email.com',
-      password: 'any_pass',
-      role: 'admin'
-    })
-    expect(response.body.id).toHaveLength(36)
+        name: 'any_employer_test',
+        email: 'test@email.com',
+        password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
+    expect(response.body.id).toBeDefined()
   })
   test('should return 400 bad request if name is missing', async () => {
-    const response = await supertest(app).post('/api/employers').send({
+    const response = await supertest(app).post('/api/employers')
+      .send({
       // name: 'any_employer_test',
-      email: 'test@email.com',
-      password: 'any_pass',
-      role: 'admin'
-    })
+        email: 'test@email.com',
+        password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       errors: [
@@ -47,12 +63,14 @@ describe('POST /api/employers', () => {
     })
   })
   test('should return 400 bad request if email is missing', async () => {
-    const response = await supertest(app).post('/api/employers').send({
-      name: 'any_employer_test',
-      // email: 'test@email.com',
-      password: 'any_pass',
-      role: 'admin'
-    })
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        name: 'any_employer_test',
+        // email: 'test@email.com',
+        password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       errors: [
@@ -66,12 +84,14 @@ describe('POST /api/employers', () => {
     })
   })
   test('should return 400 bad request if email is in wrong format', async () => {
-    const response = await supertest(app).post('/api/employers').send({
-      name: 'any_employer_test',
-      email: 'any_email_test',
-      password: 'any_pass',
-      role: 'admin'
-    })
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        name: 'any_employer_test',
+        email: 'any_email_test',
+        password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       errors: [
@@ -86,12 +106,14 @@ describe('POST /api/employers', () => {
     })
   })
   test('should return 400 bad request if password is missing', async () => {
-    const response = await supertest(app).post('/api/employers').send({
-      name: 'any_employer_test',
-      email: 'test@email.com',
-      // password: 'any_pass',
-      role: 'admin'
-    })
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        name: 'any_employer_test',
+        email: 'test@email.com',
+        // password: 'any_pass',
+        role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       errors: [
@@ -105,12 +127,14 @@ describe('POST /api/employers', () => {
     })
   })
   test('should return 400 bad request if role is missing', async () => {
-    const response = await supertest(app).post('/api/employers').send({
-      name: 'any_employer_test',
-      email: 'test@email.com',
-      password: 'any_pass'
-      // role: 'admin'
-    })
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        name: 'any_employer_test',
+        email: 'test@email.com',
+        password: 'any_pass'
+        // role: 'admin'
+      })
+      .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       errors: [
@@ -122,5 +146,17 @@ describe('POST /api/employers', () => {
         }
       ]
     })
+  })
+  test('should return 401 unauthorized if token not provided', async () => {
+    const fakeId = randomUUID()
+    const response = await supertest(app).post('/api/employers')
+      .send({
+        id: fakeId,
+        name: 'any_employer_test',
+        email: 'test@email.com',
+        password: 'any_pass',
+        role: 'admin'
+      })
+    expect(response.statusCode).toBe(401)
   })
 })

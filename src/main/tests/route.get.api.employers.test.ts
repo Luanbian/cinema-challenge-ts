@@ -3,11 +3,26 @@ import appServer from '../index'
 
 const app = appServer.getApp()
 describe('GET /api/employers', () => {
+  let token: string
+  beforeEach(async () => {
+    const login = await supertest(app).post('/api/login').send({
+      email: 'seed@test.com',
+      password: '123'
+    })
+    token = login.text.replace(/\\|"/g, '')
+  })
   afterEach(async () => {
     await appServer.close()
   })
-  test('should return statusCode 200 or 204 if consult is ok', async () => {
-    const response = await supertest(app).get('/api/employers')
-    expect(response.statusCode === 200 || response.statusCode === 204).toBe(true)
+  test('should return statusCode 200 if consult is ok', async () => {
+    const response = await supertest(app)
+      .get('/api/employers')
+      .set('Authorization', `Bearer ${token}`)
+    expect(response.statusCode).toBe(200)
+  })
+  test('should return statusCode 401 if token not provided', async () => {
+    const response = await supertest(app)
+      .get('/api/employers')
+    expect(response.statusCode).toBe(401)
   })
 })

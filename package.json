@@ -20,6 +20,9 @@
     "start": "npm run load-env -- npx prisma migrate deploy && npx ts-node src/main/index.ts",
     "start:dev": "npm run load-env-test -- npx prisma migrate deploy && npx ts-node src/main/index.ts"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seeds/index.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

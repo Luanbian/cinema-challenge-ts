@@ -39,7 +39,7 @@ describe('ListMovie', () => {
       hasMore: false
     })
   })
-  test('should call repository with correct values', async () => {
+  test('should call repository with passed values', async () => {
     const { sut, repositoryStub } = makeSut()
     const repositorySpy = jest.spyOn(repositoryStub, 'findAll')
     const paramns: queryParamns = {
@@ -50,5 +50,22 @@ describe('ListMovie', () => {
     }
     await sut.perform(paramns)
     expect(repositorySpy).toHaveBeenCalledWith(paramns)
+  })
+  test('should call repository with default values', async () => {
+    const { sut, repositoryStub } = makeSut()
+    const repositorySpy = jest.spyOn(repositoryStub, 'findAll')
+    const paramns: queryParamns = {
+      column: undefined,
+      type: undefined,
+      limit: undefined,
+      page: undefined
+    }
+    await sut.perform(paramns)
+    expect(repositorySpy).toHaveBeenCalledWith({
+      column: 'name',
+      type: 'asc',
+      limit: '100',
+      page: '1'
+    })
   })
 })

@@ -34,6 +34,24 @@ describe('CreateMovie', () => {
       inTheaters: true
     })
   })
+  test('should return a Movie Entity even id not passed', async () => {
+    const { sut } = makeSut()
+    const input: movieDto = {
+      // id: 'valid_test_id',
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: '01/11/2023',
+      inTheaters: true
+    }
+    const movie = await sut.perform(input)
+    expect(movie).toEqual({
+      id: movie.id,
+      name: 'any_name',
+      synopsis: 'any_synopsis',
+      releaseDate: parse(input.releaseDate, 'dd/MM/yyyy', new Date()),
+      inTheaters: true
+    })
+  })
   test('should call repository with correct values', async () => {
     const { sut, repositoryStub } = makeSut()
     const repositorySpy = jest.spyOn(repositoryStub, 'save')

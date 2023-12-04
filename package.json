@@ -14,11 +14,16 @@
   "scripts": {
     "load-env": "npx dotenv-cli -e .env",
     "load-env-test": "npx dotenv-cli -e .env.test",
-    "test": "jest --passWithNoTests --watch --silent --runInBand",
-    "test:unit": "npm test -- --watch -c jest.unit.config.js",
-    "test:integration": "npm test -- --watch -c jest.integration.config.js",
-    "start": "npm run load-env -- npx prisma migrate deploy && npx ts-node src/main/index.ts",
-    "start:dev": "npm run load-env-test -- npx prisma migrate deploy && npx ts-node src/main/index.ts"
+    "seed": "npx prisma db seed",
+    "migrate": "npx prisma migrate deploy",
+    "load-test-ambient": "npm run load-env-test -- \"npx prisma generate && npm run migrate && npm run seed\"",
+    "load-prod-ambient": "npm run load-env -- \"npx prisma generate && npm run migrate && npm run seed\"",
+    "start": "ts-node src/main/index.ts",
+    "test": "jest --passWithNoTests --watchAll --silent --runInBand",
+    "test:unit": "npm test -- --watchAll -c jest.unit.config.js",
+    "test:integration": "npm run load-test-ambient && npm test -- --watchAll -c jest.integration.config.js",
+    "start:prod": "npm run load-prod-ambient && npm start",
+    "start:dev": "npm run load-test-ambient && npm start"
   },
   "prisma": {
     "seed": "ts-node prisma/seeds/index.ts"

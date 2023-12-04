@@ -23,7 +23,7 @@ describe('PUT /api/movies/:id', () => {
   })
   test('should return status code 200 if updated with success', async () => {
     const response = await supertest(app)
-      .put('/api/movies/valid_test_id')
+      .put('/api/movies/seed_id')
       .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(200)
     expect(response.body.action).toBe('updated')

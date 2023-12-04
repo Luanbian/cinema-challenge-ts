@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../src/infra/prisma'
 import { makeEncrypterAdapter } from '../../src/main/factories/adapter.factory'
-const prisma = new PrismaClient()
 
 async function main (): Promise<void> {
   const hash = makeEncrypterAdapter()

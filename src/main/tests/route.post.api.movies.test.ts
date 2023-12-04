@@ -32,7 +32,7 @@ describe('POST /api/movies', () => {
   test('should return randomUUID if id is not provided', async () => {
     const response = await supertest(app).post('/api/movies')
       .send({
-      // id: 'valid_test_id',
+        id: undefined,
         name: 'any_movie_test',
         synopsis: 'any_synopsis_test',
         releaseDate: '02/11/2022',
@@ -44,7 +44,7 @@ describe('POST /api/movies', () => {
   test('should return 400 bad request if name is missing', async () => {
     const response = await supertest(app).post('/api/movies')
       .send({
-      // name: 'any_movie_test',
+        name: undefined,
         synopsis: 'any_synopsis_test',
         releaseDate: '02/11/2022',
         inTheaters: true
@@ -66,7 +66,7 @@ describe('POST /api/movies', () => {
     const response = await supertest(app).post('/api/movies')
       .send({
         name: 'any_movie_test',
-        // synopsis: 'any_synopsis_test',
+        synopsis: undefined,
         releaseDate: '02/11/2022',
         inTheaters: true
       })
@@ -88,7 +88,7 @@ describe('POST /api/movies', () => {
       .send({
         name: 'any_movie_test',
         synopsis: 'any_synopsis_test',
-        // releaseDate: '02/11/2022',
+        releaseDate: undefined,
         inTheaters: true
       })
       .set('Authorization', `Bearer ${token}`)
@@ -109,8 +109,8 @@ describe('POST /api/movies', () => {
       .send({
         name: 'any_movie_test',
         synopsis: 'any_synopsis_test',
-        releaseDate: '02/11/2022'
-      // inTheaters: true
+        releaseDate: '02/11/2022',
+        inTheaters: undefined
       })
       .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)

@@ -54,7 +54,7 @@ describe('CreateEmployer', () => {
   test('should return a employer entity hashed password even id not passed', async () => {
     const { sut } = makeSut()
     const props: EmployerDto = {
-      // id: 'valid_test_id',
+      id: undefined,
       name: 'employer_name',
       email: 'employer@email',
       password: '1234',

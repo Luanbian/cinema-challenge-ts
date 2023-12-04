@@ -32,7 +32,7 @@ describe('POST /api/employers', () => {
   test('should return randomUUID if id is not provided', async () => {
     const response = await supertest(app).post('/api/employers')
       .send({
-      // id: 'valid_test_id',
+        id: undefined,
         name: 'any_employer_test',
         email: 'test@email.com',
         password: 'any_pass',
@@ -44,7 +44,7 @@ describe('POST /api/employers', () => {
   test('should return 400 bad request if name is missing', async () => {
     const response = await supertest(app).post('/api/employers')
       .send({
-      // name: 'any_employer_test',
+        name: undefined,
         email: 'test@email.com',
         password: 'any_pass',
         role: 'admin'
@@ -66,7 +66,7 @@ describe('POST /api/employers', () => {
     const response = await supertest(app).post('/api/employers')
       .send({
         name: 'any_employer_test',
-        // email: 'test@email.com',
+        email: undefined,
         password: 'any_pass',
         role: 'admin'
       })
@@ -110,7 +110,7 @@ describe('POST /api/employers', () => {
       .send({
         name: 'any_employer_test',
         email: 'test@email.com',
-        // password: 'any_pass',
+        password: undefined,
         role: 'admin'
       })
       .set('Authorization', `Bearer ${token}`)
@@ -131,8 +131,8 @@ describe('POST /api/employers', () => {
       .send({
         name: 'any_employer_test',
         email: 'test@email.com',
-        password: 'any_pass'
-        // role: 'admin'
+        password: 'any_pass',
+        role: undefined
       })
       .set('Authorization', `Bearer ${token}`)
     expect(response.statusCode).toBe(400)

@@ -37,7 +37,7 @@ describe('CreateMovie', () => {
   test('should return a Movie Entity even id not passed', async () => {
     const { sut } = makeSut()
     const input: movieDto = {
-      // id: 'valid_test_id',
+      id: undefined,
       name: 'any_name',
       synopsis: 'any_synopsis',
       releaseDate: '01/11/2023',

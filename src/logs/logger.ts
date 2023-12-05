@@ -19,9 +19,8 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.File({
-      filename: path.join(__dirname, `./reports/output-${day}.log`)
+      filename: path.join(__dirname, `../../reports/output-${day}.log`)
     })
   ]
 })
-
 export default logger

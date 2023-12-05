@@ -1,19 +1,11 @@
-import { type IredefinePasswordProps, type IredefinePassword } from '../../data/protocols/redefine.password.protocol'
+import { makeRedefinePasswordMock } from '../../data/mocks/redefine.password.mock'
+import { type IredefinePassword } from '../../data/protocols/redefine.password.protocol'
 import { RedefinePasswordController, type RedefinePasswordControllerProps } from '../controllers/redefine.password.controller'
 import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
   sut: RedefinePasswordController
   redefine: IredefinePassword
-}
-
-export const makeRedefinePasswordMock = (): IredefinePassword => {
-  class RedefinePasswordMock implements IredefinePassword {
-    public async perform (paramns: IredefinePasswordProps): Promise<string> {
-      return 'redefined'
-    }
-  }
-  return new RedefinePasswordMock()
 }
 
 const makeSut = (): SutTypes => {

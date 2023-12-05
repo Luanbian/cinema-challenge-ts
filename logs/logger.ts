@@ -10,7 +10,7 @@ const logger = winstom.createLogger({
       format: 'DD-MM-YYYY hh:mm:ss A'
     }),
     format.prettyPrint(),
-    format.printf((log) => `[${log.timestamp}] ${log.level}: ${log.message}`)
+    format.printf((log) => `[${log.timestamp}] ${log.level}: ${log.message}, ${log.label}, ${log.error}`)
   ),
   transports: [
     new winstom.transports.File({

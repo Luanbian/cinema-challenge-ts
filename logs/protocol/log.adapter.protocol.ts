@@ -9,4 +9,4 @@ export interface IlogObject {
   error?: Error
 }
 
-export type types = 'debug' | 'info' | 'warning' | 'error' | 'crit'
+export type types = 'info' | 'warn' | 'error' | 'crit'

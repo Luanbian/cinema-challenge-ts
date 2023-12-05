@@ -1,7 +1,6 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type Iauth, type Ilogin } from '../../data/protocols/login.employer.protocol'
-import { makeLog } from '../../main/factories/adapter.factory'
 import { ExpectedError } from '../helpers/expected.error'
 import { ok, serverError, unauthorized } from '../helpers/http.helper'
 
@@ -20,7 +19,6 @@ export class LoginEmployerController implements Controller <LoginEmployerControl
         password: paramns.password
       }
       const res = await this.login.perform(auth)
-      await makeLog().execute('info', 'testando')
       return ok(res)
     } catch (error) {
       if (error instanceof ExpectedError) {

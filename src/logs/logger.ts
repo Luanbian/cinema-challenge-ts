@@ -1,10 +1,10 @@
 import path from 'path'
-import winstom, { format } from 'winston'
+import winston, { format } from 'winston'
 import { format as form } from 'date-fns'
 
 const day = form(new Date(), 'dd_MM_yyyy')
 
-const logger = winstom.createLogger({
+const logger = winston.createLogger({
   format: format.combine(
     format.timestamp({
       format: 'DD-MM-YYYY hh:mm:ss A'
@@ -18,7 +18,7 @@ const logger = winstom.createLogger({
     })
   ),
   transports: [
-    new winstom.transports.File({
+    new winston.transports.File({
       filename: path.join(__dirname, `./reports/output-${day}.log`)
     })
   ]

@@ -3,8 +3,8 @@ import { BcryptAdapter } from '../../data/criptography/bcrypt.adapter'
 import { type Authenticate } from '../../middleware/auth/protocol/authenticate.protocol'
 import { type Encrypter } from '../../data/criptography/protocol/encrypter.protocol'
 import * as dotenv from 'dotenv'
-import { type Ilogs } from '../../../logs/protocol/log.adapter.protocol'
-import { LogAdapter } from '../../../logs/adapter/log.adapter'
+import { type Ilogs } from '../../logs/protocol/log.adapter.protocol'
+import { LogAdapter } from '../../logs/adapter/log.adapter'
 dotenv.config()
 
 export const makeEncrypterAdapter = (): Encrypter => {

@@ -1,8 +1,8 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type Iauth, type Ilogin } from '../../data/protocols/login.employer.protocol'
-import { ExpectedError } from '../helpers/expected.error'
-import { ok, serverError, unauthorized } from '../helpers/http.helper'
+import { makeLog } from '../../main/factories/adapter.factory'
+import { ok, serverError } from '../helpers/http.helper'
 
 export interface LoginEmployerControllerProps {
   email: string
@@ -19,12 +19,10 @@ export class LoginEmployerController implements Controller <LoginEmployerControl
         password: paramns.password
       }
       const res = await this.login.perform(auth)
+      await makeLog().execute('info', 'user logged', { user: { email: auth.email } })
       return ok(res)
     } catch (error) {
-      if (error instanceof ExpectedError) {
-        return unauthorized(error.message)
-      }
-      console.error(error)
+      await makeLog().execute('crit', 'server error', 'login controller throws', new Error(error))
       return serverError(error)
     }
   }

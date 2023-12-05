@@ -2,6 +2,7 @@ import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
 import { type EmployerDto, type IcreateEmployer } from '../../data/protocols/create.employer.protocol'
 import { type Roles } from '../../domain/enums/roles.enum'
+import { makeLog } from '../../main/factories/adapter.factory'
 import { created, serverError, unauthorized } from '../helpers/http.helper'
 
 export interface AddEmployerControllerProps extends EmployerDto {
@@ -16,6 +17,7 @@ export class AddEmployerController implements Controller<AddEmployerControllerPr
       const permitedRoles = ['admin', 'cadastrer']
       if (typeof paramns.loggedUser.role === 'undefined' ||
         !permitedRoles.includes(paramns.loggedUser.role.toLowerCase().trim())) {
+        await makeLog().execute('warn', 'user try create a new employer without access', { user: { logged: paramns.loggedUser } })
         return unauthorized('Você não tem permissão para acessar essa rota')
       }
       const employerDto: EmployerDto = {
@@ -26,9 +28,10 @@ export class AddEmployerController implements Controller<AddEmployerControllerPr
         role: paramns.role
       }
       const res = await this.create.perform(employerDto)
+      await makeLog().execute('info', 'new employer created', { loggedUser: paramns.loggedUser, employerCreated: res })
       return created(res)
     } catch (error) {
-      console.error(error)
+      await makeLog().execute('crit', 'server error', 'add employer controller throws', new Error(error))
       return serverError(error)
     }
   }

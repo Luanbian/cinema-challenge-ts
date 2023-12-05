@@ -1,19 +1,10 @@
-import { type HttpResponse } from '../../@types/http'
+import { type IredefinePasswordProps, type IredefinePassword } from '../../data/protocols/redefine.password.protocol'
+import { RedefinePasswordController, type RedefinePasswordControllerProps } from '../controllers/redefine.password.controller'
 import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
   sut: RedefinePasswordController
   redefine: IredefinePassword
-}
-
-export interface IredefinePassword {
-  perform: (paramns: IredefinePasswordProps) => Promise<string>
-}
-
-export interface IredefinePasswordProps {
-  email: string
-  token: string
-  newPassword: string
 }
 
 export const makeRedefinePasswordMock = (): IredefinePassword => {
@@ -23,42 +14,6 @@ export const makeRedefinePasswordMock = (): IredefinePassword => {
     }
   }
   return new RedefinePasswordMock()
-}
-
-export interface RedefinePasswordControllerProps {
-  email: string
-  token: string
-  newPassword: string
-}
-
-export class RedefinePasswordController {
-  constructor (private readonly redefine: IredefinePassword) {}
-
-  public async handle (paramns: RedefinePasswordControllerProps): Promise<HttpResponse> {
-    try {
-      const props: IredefinePasswordProps = {
-        email: paramns.email,
-        token: paramns.token,
-        newPassword: paramns.newPassword
-      }
-      const res = await this.redefine.perform(props)
-      return {
-        statusCode: 200,
-        body: res
-      }
-    } catch (error) {
-      if (error instanceof ExpectedError) {
-        return {
-          statusCode: 400,
-          body: error.message
-        }
-      }
-      return {
-        statusCode: 500,
-        body: error
-      }
-    }
-  }
 }
 
 const makeSut = (): SutTypes => {

@@ -1,51 +1,11 @@
-import { type HttpResponse } from '../../@types/http'
+import { makePasswordTokenMock } from '../../data/mocks/forgot.password.mock'
+import { type IPasswordToken } from '../../data/protocols/forgot.password.protocol'
+import { ForgotPasswordController } from '../controllers/forgot.password.controller'
 import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
   sut: ForgotPasswordController
   passwordToken: IPasswordToken
-}
-
-export interface IPasswordToken {
-  perform: (email: string) => Promise<string>
-}
-
-export const makePasswordTokenMock = (): IPasswordToken => {
-  class PasswordTokenMock implements IPasswordToken {
-    public async perform (email: string): Promise<string> {
-      return 'valid_password_token'
-    }
-  }
-  return new PasswordTokenMock()
-}
-
-export interface ForgotPasswordControllerProps {
-  email: string
-}
-
-export class ForgotPasswordController {
-  constructor (private readonly passwordToken: IPasswordToken) {}
-
-  public async handle (paramns: ForgotPasswordControllerProps): Promise<HttpResponse> {
-    try {
-      const res = await this.passwordToken.perform(paramns.email)
-      return {
-        statusCode: 200,
-        body: res
-      }
-    } catch (error) {
-      if (error instanceof ExpectedError) {
-        return {
-          statusCode: 400,
-          body: error.message
-        }
-      }
-      return {
-        statusCode: 500,
-        body: 'server error'
-      }
-    }
-  }
 }
 
 const makeSut = (): SutTypes => {

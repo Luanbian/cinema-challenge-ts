@@ -1,7 +1,7 @@
-import { type IPasswordToken } from '../protocols/forgot.password.protocol'
+import { type IForgotPassword } from '../protocols/forgot.password.protocol'
 
-export const makePasswordTokenMock = (): IPasswordToken => {
-  class PasswordTokenMock implements IPasswordToken {
+export const makePasswordTokenMock = (): IForgotPassword => {
+  class PasswordTokenMock implements IForgotPassword {
     public async perform (email: string): Promise<{ token: string, expiresAt: Date }> {
       return {
         token: 'valid_password_token',

@@ -9,6 +9,8 @@ export const makeFindAllEmployersStub = (): IfindAllEmployers => {
         name: string
         email: string
         password: string
+        passwordToken: string
+        passwordTokenExpires: Date
         role: $Enums.Roles
       }>
       length: number
@@ -19,12 +21,16 @@ export const makeFindAllEmployersStub = (): IfindAllEmployers => {
           name: 'name_test',
           email: 'email_test@gmail.com',
           password: 'passowrd_test',
+          passwordToken: 'valid_password_token',
+          passwordTokenExpires: new Date('01/11/2023'),
           role: Roles.ADMIN
         }, {
           id: 'id_test',
           name: 'name_test',
           email: 'email_test@gmail.com',
           password: 'passowrd_test',
+          passwordToken: 'valid_password_token',
+          passwordTokenExpires: new Date('01/11/2023'),
           role: Roles.ADMIN
         }],
         length: 2

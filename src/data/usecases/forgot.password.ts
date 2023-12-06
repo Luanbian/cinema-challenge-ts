@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
-import { type IPasswordToken } from '../protocols/forgot.password.protocol'
+import { type IForgotPassword } from '../protocols/forgot.password.protocol'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type Employer } from '../../domain/entities/employer'
 import { type IupdatePasswordToken } from '../../infra/protocols/update.passwordToken.protocol'
 
-export class PasswordToken implements IPasswordToken {
+export class ForgotPassword implements IForgotPassword {
   constructor (
     private readonly repository: IfindUserByAuth,
     private readonly reset: IupdatePasswordToken

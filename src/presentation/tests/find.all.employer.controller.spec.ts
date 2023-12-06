@@ -29,12 +29,16 @@ describe('FindAllEmployerController', () => {
         name: 'test_name',
         email: 'test_email@gmail.com',
         password: 'test_password',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023'),
         role: Roles.ADMIN
       }, {
         id: 'test_id',
         name: 'test_name',
         email: 'test_email@gmail.com',
         password: 'test_password',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023'),
         role: Roles.ADMIN
       }],
       length: 2
@@ -55,12 +59,16 @@ describe('FindAllEmployerController', () => {
         name: 'test_name',
         email: 'test_email@gmail.com',
         password: 'test_password',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023'),
         role: Roles.ADMIN
       }, {
         id: 'test_id',
         name: 'test_name',
         email: 'test_email@gmail.com',
         password: 'test_password',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023'),
         role: Roles.ADMIN
       }],
       length: 2

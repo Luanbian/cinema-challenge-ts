@@ -1,11 +1,11 @@
 import { makePasswordTokenMock } from '../../data/mocks/forgot.password.mock'
-import { type IPasswordToken } from '../../data/protocols/forgot.password.protocol'
+import { type IForgotPassword } from '../../data/protocols/forgot.password.protocol'
 import { ForgotPasswordController } from '../controllers/forgot.password.controller'
 import { ExpectedError } from '../helpers/expected.error'
 
 interface SutTypes {
   sut: ForgotPasswordController
-  passwordToken: IPasswordToken
+  passwordToken: IForgotPassword
 }
 
 const makeSut = (): SutTypes => {

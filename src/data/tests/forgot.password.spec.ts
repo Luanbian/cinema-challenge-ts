@@ -3,11 +3,11 @@ import { makeUpdatePasswordTokenStub } from '../../infra/mocks/update.passwordTo
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { type IupdatePasswordToken } from '../../infra/protocols/update.passwordToken.protocol'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
-import { type IPasswordToken } from '../protocols/forgot.password.protocol'
-import { PasswordToken } from '../usecases/forgot.password'
+import { type IForgotPassword } from '../protocols/forgot.password.protocol'
+import { ForgotPassword } from '../usecases/forgot.password'
 
 interface SutTypes {
-  sut: IPasswordToken
+  sut: IForgotPassword
   findUser: IfindUserByAuth
   reset: IupdatePasswordToken
 }
@@ -15,7 +15,7 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const findUser = makeFindUserByAuthStub()
   const reset = makeUpdatePasswordTokenStub()
-  const sut = new PasswordToken(findUser, reset)
+  const sut = new ForgotPassword(findUser, reset)
   return { sut, findUser, reset }
 }
 

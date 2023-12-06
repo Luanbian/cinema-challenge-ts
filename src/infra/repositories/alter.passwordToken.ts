@@ -1,7 +1,7 @@
 import prisma from '../prisma'
 import { type IupdatePasswordToken, type IupdatePasswordTokenProps } from '../protocols/update.passwordToken.protocol'
 
-export class AlterPasswordToken implements IupdatePasswordToken {
+export class UpdatePasswordToken implements IupdatePasswordToken {
   public async alterPassToken (paramns: IupdatePasswordTokenProps): Promise<void> {
     await prisma.employers.update({
       data: {

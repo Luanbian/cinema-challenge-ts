@@ -1,6 +1,6 @@
 import { type Controller } from '../../@types/controller'
 import { type HttpResponse } from '../../@types/http'
-import { type IPasswordToken } from '../../data/protocols/forgot.password.protocol'
+import { type IForgotPassword } from '../../data/protocols/forgot.password.protocol'
 import { ExpectedError } from '../helpers/expected.error'
 import { badRequest, ok, serverError } from '../helpers/http.helper'
 
@@ -9,7 +9,7 @@ export interface ForgotPasswordControllerProps {
 }
 
 export class ForgotPasswordController implements Controller<ForgotPasswordControllerProps> {
-  constructor (private readonly passwordToken: IPasswordToken) {}
+  constructor (private readonly passwordToken: IForgotPassword) {}
 
   public async handle (paramns: ForgotPasswordControllerProps): Promise<HttpResponse> {
     try {

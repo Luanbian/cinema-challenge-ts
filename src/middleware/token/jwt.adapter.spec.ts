@@ -33,6 +33,8 @@ describe('JwtAdapter', () => {
       name: 'valid_name',
       email: 'valid.email@gmail.com',
       password: 'hashed_password',
+      passwordToken: 'valid_password_token',
+      passwordTokenExpires: new Date(),
       role: 'CONSULTER'
     }
     await sut.generateToken(user)
@@ -45,6 +47,8 @@ describe('JwtAdapter', () => {
       name: 'valid_name',
       email: 'valid.email@gmail.com',
       password: 'hashed_password',
+      passwordToken: 'valid_password_token',
+      passwordTokenExpires: new Date(),
       role: 'CONSULTER'
     }
     const token = await sut.generateToken(user)
@@ -86,6 +90,8 @@ describe('JwtAdapter', () => {
       name: 'valid_name',
       email: 'valid.email@gmail.com',
       password: 'hashed_password',
+      passwordToken: 'valid_password_token',
+      passwordTokenExpires: new Date(),
       role: 'CONSULTER'
     }
     const promise = sut.generateToken(user)

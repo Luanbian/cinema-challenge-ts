@@ -34,6 +34,8 @@ describe('AddEmployerController', () => {
       name: 'employer_name_test',
       email: 'employer_email_test',
       password: 'employer_pass_test',
+      passwordToken: 'valid_password_token',
+      passwordTokenExpires: new Date('01/11/2023'),
       role: Roles.ADMIN
     })
   })
@@ -56,6 +58,8 @@ describe('AddEmployerController', () => {
       name: 'employer_name_test',
       email: 'employer_email_test',
       password: 'employer_pass_test',
+      passwordToken: 'valid_password_token',
+      passwordTokenExpires: new Date('01/11/2023'),
       role: Roles.ADMIN
     })
   })

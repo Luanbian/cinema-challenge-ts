@@ -1,34 +1,15 @@
-import { randomUUID } from 'crypto'
-import { type Employer } from '../../domain/entities/employer'
 import { makeFindUserByAuthStub } from '../../infra/mocks/find.user.by.auth.mock'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type IPasswordToken } from '../protocols/forgot.password.protocol'
+import { PasswordToken } from '../usecases/forgot.password'
 
 interface SutTypes {
   sut: IPasswordToken
   findUser: IfindUserByAuth
 }
 
-export class PasswordToken implements IPasswordToken {
-  constructor (
-    private readonly repository: IfindUserByAuth
-  ) {}
-
-  public async perform (email: string): Promise<string> {
-    await this.findUserByEmail(email)
-    const token = randomUUID()
-    return token
-  }
-
-  private async findUserByEmail (email: string): Promise<Employer> {
-    const user = await this.repository.findUserByAuth(email)
-    if (user === null) throw new ExpectedError('usuário não encontrado')
-    else return user
-  }
-}
-
-export const makeSut = (): SutTypes => {
+const makeSut = (): SutTypes => {
   const findUser = makeFindUserByAuthStub()
   const sut = new PasswordToken(findUser)
   return { sut, findUser }

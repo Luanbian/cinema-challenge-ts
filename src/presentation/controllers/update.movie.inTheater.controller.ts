@@ -23,7 +23,7 @@ export class UpdateMovieInTheaterController implements Controller<UpdateMovieInT
       }
       const res = await this.update.perform(paramns.id)
       if (res === null) {
-        await makeLog().execute('warn', 'user try update movie in theater that doesnt exist', { loggedUser: paramns.loggedUser })
+        await makeLog().execute('error', 'user try update movie in theater that doesnt exist', { loggedUser: paramns.loggedUser })
         return notFound('id not found')
       }
       await makeLog().execute('info', 'movie in theater updated', { loggedUser: paramns.loggedUser, updatedMovie: res.after })

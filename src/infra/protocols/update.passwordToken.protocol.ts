@@ -5,5 +5,5 @@ export interface IupdatePasswordTokenProps {
 }
 
 export interface IupdatePasswordToken {
-  alterPassToken: (paramns: IupdatePasswordTokenProps) => Promise<string>
+  alterPassToken: (paramns: IupdatePasswordTokenProps) => Promise<void>
 }

@@ -22,6 +22,7 @@ export class RedefinePassword implements IredefinePassword {
 
   public async perform (paramns: IredefinePasswordProps): Promise<string> {
     const user = await this.findUserByEmail(paramns.email)
+    await this.veirfyProvidedToken(user.passwordToken, paramns.token)
     return 'password redefined'
   }
 
@@ -29,6 +30,12 @@ export class RedefinePassword implements IredefinePassword {
     const user = await this.user.findUserByAuth(email)
     if (user === null) throw new ExpectedError('usuário não encontrado')
     else return user
+  }
+
+  private async veirfyProvidedToken (userToken: string, providedToken: string): Promise<void> {
+    if (userToken !== providedToken) {
+      throw new ExpectedError('token inválido')
+    }
   }
 }
 
@@ -57,5 +64,14 @@ describe('RedefinePassword', () => {
     }
     const promise = sut.perform(props)
     await expect(promise).rejects.toThrow('usuário não encontrado')
+  })
+  test('should throw if token provided was different of user token in db', async () => {
+    const { sut } = makeSut()
+    const promise = sut.perform({
+      email: 'valid_email',
+      token: 'invalid_password_token',
+      newPassword: 'new_pass'
+    })
+    await expect(promise).rejects.toThrow('token inválido')
   })
 })

@@ -9,7 +9,9 @@ export const makeFindUserByAuthStub = (): IfindUserByAuth => {
         name: 'valid_name',
         email: 'valid_email',
         password: '1#24%$6',
-        role: 'CONSULTER'
+        role: 'CONSULTER',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023')
       }
     }
   }

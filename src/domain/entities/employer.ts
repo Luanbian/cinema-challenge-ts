@@ -15,8 +15,8 @@ export class Employer {
   readonly name: string
   readonly email: string
   readonly password: string
-  readonly passwordToken: string
-  readonly passwordTokenExpires: Date
+  readonly passwordToken: string | null
+  readonly passwordTokenExpires: Date | null
   readonly role: Roles
 
   private constructor (props: EmployerProps) {

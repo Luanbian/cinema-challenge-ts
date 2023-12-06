@@ -31,7 +31,7 @@ model Employers {
   name String
   email String
   password String
-  passwordToken String @db.Char(36) @default(uuid())
+  passwordToken String? @db.Char(36) @default(uuid())
   passwordTokenExpires DateTime?
   role Roles @default(CONSULTER)
 }

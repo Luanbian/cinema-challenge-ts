@@ -21,7 +21,16 @@ const validateLoginInput = [
   body('password').isString()
 ]
 
-export { validateMovieInput, validateEmployerInput, validateLoginInput }
+const validateEmail = [
+  body('email').isEmail()
+]
+
+const validateResetPass = [
+  body('email').isEmail(),
+  body('token').isString(),
+  body('newPassword').isString()
+]
+export { validateMovieInput, validateEmployerInput, validateLoginInput, validateEmail, validateResetPass }
 
 export function handleValidation (req: Request, res: Response, next: NextFunction): void {
   const errors = validationResult(req)

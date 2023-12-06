@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { type Router } from 'express'
 import makeRoute from '../adapters/express.adapter'
-import { makeAddEmployerController, makeAddMoviesController, makeFindAllEmployersController, makeFindAllMoviesController, makeLoginEmployerController, makeUpdateMovieInTheaterController } from '../factories/controller.factory'
-import { handleValidation, validateEmployerInput, validateLoginInput, validateMovieInput } from '../../middleware/validator'
+import { makeAddEmployerController, makeAddMoviesController, makeFindAllEmployersController, makeFindAllMoviesController, makeForgotPasswordController, makeLoginEmployerController, makeRedefinePasswordController, makeUpdateMovieInTheaterController } from '../factories/controller.factory'
+import { handleValidation, validateEmail, validateEmployerInput, validateLoginInput, validateMovieInput, validateResetPass } from '../../middleware/validator'
 import makeAuthMiddleware from '../../middleware/auth/auth.middleware'
 import { makeAuthenticateAdapter } from '../factories/adapter.factory'
 
@@ -16,4 +16,6 @@ export default (router: Router): void => {
   router.post('/api/employers', auth, validateEmployerInput, handleValidation, makeRoute(makeAddEmployerController()))
 
   router.post('/api/login', validateLoginInput, handleValidation, makeRoute(makeLoginEmployerController()))
+  router.post('/api/forgotPassword', validateEmail, handleValidation, makeRoute(makeForgotPasswordController()))
+  router.post('/api/resetPassword', validateResetPass, handleValidation, makeRoute(makeRedefinePasswordController()))
 }

@@ -1,5 +1,7 @@
 import { makeFindUserByAuthStub } from '../../infra/mocks/find.user.by.auth.mock'
+import { makeUpdatePasswordTokenStub } from '../../infra/mocks/update.passwordToken.mock'
 import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.protocol'
+import { type IupdatePasswordToken } from '../../infra/protocols/update.passwordToken.protocol'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type IPasswordToken } from '../protocols/forgot.password.protocol'
 import { PasswordToken } from '../usecases/forgot.password'
@@ -7,12 +9,14 @@ import { PasswordToken } from '../usecases/forgot.password'
 interface SutTypes {
   sut: IPasswordToken
   findUser: IfindUserByAuth
+  reset: IupdatePasswordToken
 }
 
 const makeSut = (): SutTypes => {
   const findUser = makeFindUserByAuthStub()
-  const sut = new PasswordToken(findUser)
-  return { sut, findUser }
+  const reset = makeUpdatePasswordTokenStub()
+  const sut = new PasswordToken(findUser, reset)
+  return { sut, findUser, reset }
 }
 
 describe('PasswordToken', () => {
@@ -35,5 +39,15 @@ describe('PasswordToken', () => {
     const usecase = await sut.perform('valid_email')
     expect(typeof usecase.token === 'string').toBeTruthy()
     expect(usecase.expiresAt).toBeInstanceOf(Date)
+  })
+  test('should call reset repository with correct values', async () => {
+    const { sut, reset } = makeSut()
+    const resetSpy = jest.spyOn(reset, 'alterPassToken')
+    const usecase = await sut.perform('valid_email')
+    expect(resetSpy).toHaveBeenCalledWith({
+      id: 'valid_id',
+      token: usecase.token,
+      expiresAt: usecase.expiresAt
+    })
   })
 })

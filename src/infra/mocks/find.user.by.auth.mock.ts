@@ -11,7 +11,7 @@ export const makeFindUserByAuthStub = (): IfindUserByAuth => {
         password: '1#24%$6',
         role: 'CONSULTER',
         passwordToken: 'valid_password_token',
-        passwordTokenExpires: new Date('01/11/2023')
+        passwordTokenExpires: new Date()
       }
     }
   }

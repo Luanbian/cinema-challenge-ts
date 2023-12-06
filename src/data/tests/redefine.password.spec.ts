@@ -23,6 +23,7 @@ export class RedefinePassword implements IredefinePassword {
   public async perform (paramns: IredefinePasswordProps): Promise<string> {
     const user = await this.findUserByEmail(paramns.email)
     await this.veirfyProvidedToken(user.passwordToken, paramns.token)
+    await this.verifyTokenIsExpires(user.passwordTokenExpires)
     return 'password redefined'
   }
 
@@ -35,6 +36,14 @@ export class RedefinePassword implements IredefinePassword {
   private async veirfyProvidedToken (userToken: string, providedToken: string): Promise<void> {
     if (userToken !== providedToken) {
       throw new ExpectedError('token inválido')
+    }
+  }
+
+  private async verifyTokenIsExpires (userTokenExpiresAt: Date): Promise<void> {
+    const now = new Date()
+    now.setHours(now.getHours())
+    if (userTokenExpiresAt < now) {
+      throw new ExpectedError('token expirado')
     }
   }
 }
@@ -73,5 +82,25 @@ describe('RedefinePassword', () => {
       newPassword: 'new_pass'
     })
     await expect(promise).rejects.toThrow('token inválido')
+  })
+  test('should throw if token provided was expired', async () => {
+    const { sut, find } = makeSut()
+    jest.spyOn(find, 'findUserByAuth').mockImplementationOnce(async (): Promise<Employer | null> => {
+      return {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email',
+        password: '1#24%$6',
+        role: 'CONSULTER',
+        passwordToken: 'valid_password_token',
+        passwordTokenExpires: new Date('01/11/2023')
+      }
+    })
+    const promise = sut.perform({
+      email: 'valid_email',
+      token: 'valid_password_token',
+      newPassword: 'new_pass'
+    })
+    await expect(promise).rejects.toThrow('token expirado')
   })
 })

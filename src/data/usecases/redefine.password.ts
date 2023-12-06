@@ -14,8 +14,8 @@ export class RedefinePassword implements IredefinePassword {
 
   public async perform (paramns: IredefinePasswordProps): Promise<string> {
     const user = await this.findUserByEmail(paramns.email)
-    await this.veirfyProvidedToken(user.passwordToken, paramns.token)
-    await this.verifyTokenIsExpires(user.passwordTokenExpires)
+    await this.veirfyProvidedToken(user.passwordToken as string, paramns.token)
+    await this.verifyTokenIsExpires(user.passwordTokenExpires as Date)
     const hashedPassword = await this.encrypter.encrypt(paramns.newPassword)
     await this.password.alterPass(user.id, hashedPassword)
     return 'password redefined'

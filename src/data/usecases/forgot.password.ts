@@ -3,15 +3,18 @@ import { type IfindUserByAuth } from '../../infra/protocols/find.user.by.auth.pr
 import { type IPasswordToken } from '../protocols/forgot.password.protocol'
 import { ExpectedError } from '../../presentation/helpers/expected.error'
 import { type Employer } from '../../domain/entities/employer'
+import { type IupdatePasswordToken } from '../../infra/protocols/update.passwordToken.protocol'
 
 export class PasswordToken implements IPasswordToken {
   constructor (
-    private readonly repository: IfindUserByAuth
+    private readonly repository: IfindUserByAuth,
+    private readonly reset: IupdatePasswordToken
   ) {}
 
   public async perform (email: string): Promise<{ token: string, expiresAt: Date }> {
-    await this.findUserByEmail(email)
+    const user = await this.findUserByEmail(email)
     const { token, expiresAt } = this.generatePasswordToken()
+    await this.reset.alterPassToken({ id: user.id, token, expiresAt })
     return { token, expiresAt }
   }
 

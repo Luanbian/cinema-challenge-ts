@@ -30,9 +30,10 @@ describe('PasswordToken', () => {
     const promise = sut.perform('invalid_email')
     await expect(promise).rejects.toThrow('usuário não encontrado')
   })
-  test('should return token if success', async () => {
+  test('should return token and expiresAt if success', async () => {
     const { sut } = makeSut()
     const usecase = await sut.perform('valid_email')
-    expect(typeof usecase === 'string').toBeTruthy()
+    expect(typeof usecase.token === 'string').toBeTruthy()
+    expect(usecase.expiresAt).toBeInstanceOf(Date)
   })
 })

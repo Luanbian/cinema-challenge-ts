@@ -9,15 +9,22 @@ export class PasswordToken implements IPasswordToken {
     private readonly repository: IfindUserByAuth
   ) {}
 
-  public async perform (email: string): Promise<string> {
+  public async perform (email: string): Promise<{ token: string, expiresAt: Date }> {
     await this.findUserByEmail(email)
-    const token = randomUUID()
-    return token
+    const { token, expiresAt } = this.generatePasswordToken()
+    return { token, expiresAt }
   }
 
   private async findUserByEmail (email: string): Promise<Employer> {
     const user = await this.repository.findUserByAuth(email)
     if (user === null) throw new ExpectedError('usuário não encontrado')
     else return user
+  }
+
+  private generatePasswordToken (): { token: string, expiresAt: Date } {
+    const token = randomUUID()
+    const now = new Date()
+    now.setHours(now.getHours() + 1)
+    return { token, expiresAt: now }
   }
 }

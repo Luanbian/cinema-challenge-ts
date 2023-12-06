@@ -19,7 +19,10 @@ describe('ForgotPasswordController', () => {
     const { sut } = makeSut()
     const httpRespose = await sut.handle({ email: 'valid_email@gmail.com' })
     expect(httpRespose.statusCode).toBe(200)
-    expect(httpRespose.body).toBe('valid_password_token')
+    expect(httpRespose.body).toEqual({
+      token: 'valid_password_token',
+      expiresAt: new Date('01/11/2023')
+    })
   })
   test('should return 400 bad request if user not be found', async () => {
     const { sut, passwordToken } = makeSut()

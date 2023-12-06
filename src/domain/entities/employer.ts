@@ -6,6 +6,8 @@ export interface EmployerProps {
   email: string
   password: string
   role: Roles
+  passwordToken?: string
+  passwordTokenExpires?: Date
 }
 
 export class Employer {
@@ -13,6 +15,8 @@ export class Employer {
   readonly name: string
   readonly email: string
   readonly password: string
+  readonly passwordToken: string
+  readonly passwordTokenExpires: Date
   readonly role: Roles
 
   private constructor (props: EmployerProps) {

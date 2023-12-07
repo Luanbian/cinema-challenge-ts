@@ -5,7 +5,7 @@ const app = appServer.getApp()
 describe('POST api/resetPassword', () => {
   let token: string
   beforeEach(async () => {
-    const request = await supertest(app).post('/api/login').send({
+    const request = await supertest(app).post('/api/forgotPassword').send({
       email: 'seed@test.com'
     })
     token = request.body.token
@@ -69,7 +69,7 @@ describe('POST api/resetPassword', () => {
       errors: [
         {
           type: 'field',
-          value: 'seedtest.com',
+          value: 'invalid_email_format.com',
           msg: 'Invalid value',
           path: 'email',
           location: 'body'
@@ -79,7 +79,7 @@ describe('POST api/resetPassword', () => {
   })
   test('should return status code 400 and a error if token was not provided', async () => {
     const response = await supertest(app).post('/api/resetPassword').send({
-      email: 'invalid_email_format.com',
+      email: 'seed@test.com',
       newPassword: '1234567',
       token: undefined
     })
@@ -97,7 +97,7 @@ describe('POST api/resetPassword', () => {
   })
   test('should return status code 400 and a error if new password was not provided', async () => {
     const response = await supertest(app).post('/api/resetPassword').send({
-      email: 'invalid_email_format.com',
+      email: 'seed@test.com',
       newPassword: undefined,
       token
     })
